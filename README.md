@@ -15,18 +15,21 @@ Default language: 简体中文
 
 ## Quickstart
 
-安装到 Codex 和 Claude：
+安装到本机所有 agent skill 目录：
 
 ```bash
 git clone https://github.com/cswfww123/wen-pm.git
 cd wen-pm
-./scripts/sync-skills.sh --agents codex,claude
+./scripts/sync-skills.sh
 ```
 
 默认目标目录：
 
-- `codex` -> `~/.agents/skills`
+- `agents` -> `~/.agents/skills`
+- `codex` -> `~/.codex/skills`
 - `claude` -> `~/.claude/skills`
+- `zcode` -> `~/.zcode/skills`
+- `kimi` -> `~/gstack/.kimi/skills`
 
 如果只安装到一个 agent：
 
@@ -37,13 +40,13 @@ cd wen-pm
 如果目标目录已有同名 skill，先 dry-run：
 
 ```bash
-./scripts/sync-skills.sh --agents codex,claude --dry-run
+./scripts/sync-skills.sh --dry-run
 ```
 
 确认要让这个仓库接管同名 skill 后再覆盖：
 
 ```bash
-./scripts/sync-skills.sh --agents codex,claude --force
+./scripts/sync-skills.sh --force
 ```
 
 最常用流程：

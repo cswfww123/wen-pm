@@ -2,29 +2,45 @@
 set -eu
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-AGENTS="codex,claude"
+AGENTS="all"
 DRY_RUN=0
 FORCE=0
 
 usage() {
   cat <<'EOF'
-Usage: scripts/sync-skills.sh [--agents codex,claude] [--dry-run] [--force]
+Usage: scripts/sync-skills.sh [--agents agents,codex,claude,zcode,kimi,both,all] [--dry-run] [--force]
 
 Defaults:
-  codex  -> ~/.agents/skills
+  agents -> ~/.agents/skills
+  codex  -> ~/.codex/skills
   claude -> ~/.claude/skills
+  zcode  -> ~/.zcode/skills
+  kimi   -> ~/gstack/.kimi/skills
 
 Override targets:
-  WEN_PM_CODEX_SKILLS_DIR=/path/to/skills
-  WEN_PM_CLAUDE_SKILLS_DIR=/path/to/skills
+  AGENTS_SKILLS_DIR=/path/to/skills
+  CODEX_SKILLS_DIR=/path/to/skills
+  CLAUDE_SKILLS_DIR=/path/to/skills
+  ZCODE_SKILLS_DIR=/path/to/skills
+  KIMI_SKILLS_DIR=/path/to/skills
 EOF
 }
 
 target_dir() {
   case "$1" in
-    codex) printf '%s\n' "${WEN_PM_CODEX_SKILLS_DIR:-$HOME/.agents/skills}" ;;
-    claude) printf '%s\n' "${WEN_PM_CLAUDE_SKILLS_DIR:-$HOME/.claude/skills}" ;;
+    agents) printf '%s\n' "${AGENTS_SKILLS_DIR:-$HOME/.agents/skills}" ;;
+    codex) printf '%s\n' "${CODEX_SKILLS_DIR:-$HOME/.codex/skills}" ;;
+    claude) printf '%s\n' "${CLAUDE_SKILLS_DIR:-$HOME/.claude/skills}" ;;
+    zcode) printf '%s\n' "${ZCODE_SKILLS_DIR:-$HOME/.zcode/skills}" ;;
+    kimi) printf '%s\n' "${KIMI_SKILLS_DIR:-$HOME/gstack/.kimi/skills}" ;;
     *) printf 'Unknown agent: %s\n' "$1" >&2; exit 2 ;;
+  esac
+}
+
+append_agent() {
+  case " $TARGET_AGENTS " in
+    *" $1 "*) ;;
+    *) TARGET_AGENTS="${TARGET_AGENTS:+$TARGET_AGENTS }$1" ;;
   esac
 }
 
@@ -34,6 +50,10 @@ while [ "$#" -gt 0 ]; do
       AGENTS="${2:-}"
       [ -n "$AGENTS" ] || { printf '%s\n' "--agents needs a value" >&2; exit 2; }
       shift 2
+      ;;
+    --agents=*)
+      AGENTS="${1#--agents=}"
+      shift
       ;;
     --dry-run)
       DRY_RUN=1
@@ -55,7 +75,35 @@ while [ "$#" -gt 0 ]; do
   esac
 done
 
+TARGET_AGENTS=""
 for agent in $(printf '%s' "$AGENTS" | tr ',' ' '); do
+  case "$agent" in
+    all)
+      append_agent agents
+      append_agent codex
+      append_agent claude
+      append_agent zcode
+      append_agent kimi
+      ;;
+    both)
+      append_agent codex
+      append_agent claude
+      ;;
+    agents|codex|claude|zcode|kimi)
+      append_agent "$agent"
+      ;;
+    "")
+      printf '%s\n' "Empty agent name in --agents" >&2
+      exit 2
+      ;;
+    *)
+      printf 'Unknown agent: %s\n' "$agent" >&2
+      exit 2
+      ;;
+  esac
+done
+
+for agent in $TARGET_AGENTS; do
   target="$(target_dir "$agent")"
   printf '%s\n' "==> $agent -> $target"
 
