@@ -67,7 +67,7 @@ flowchart LR
 ```
 
 1. **Intake**: 把碎片输入转成 docket，记录 claim、evidence、user/role、current alternative、outcome、risk、next question。
-2. **Grill**: 一次只问一个最高风险问题。相关方请求是输入，不是证据。
+2. **Grill**: 一次只问一个最高风险问题。相关方请求是输入，不是证据。已有代码被否时，先从 codebase 提取当前实现隐含的需求，再围绕差异追问。
 3. **Structure**: 用机会树、假设识别、风险排序和实验设计整理发现工作。
 4. **Align**: 产出 Stakeholder Alignment Brief，拿回去逐条确认。
 5. **Handoff**: 达成一致后进入 PRD、prototype、issues、test scenarios。
@@ -76,6 +76,7 @@ flowchart LR
 
 - Intake Docket
 - Settled / Contradicted / Deferred notes
+- Current Implementation docket, when code already exists
 - Four Risks board: Value, Usability, Feasibility, Viability
 - Opportunity Solution Tree
 - Assumption map and Impact x Risk priority
