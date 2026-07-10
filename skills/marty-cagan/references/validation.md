@@ -1,152 +1,121 @@
-# Marty Cagan Perspective Skill Validation
+# Marty Cagan Skill Validation
 
-Validation date: 2026-06-29
+Validation date: 2026-07-10（全量重蒸馏后）
+
+Research corpus: `references/research/01-06.md` ≈ 2063 lines（较 2026-06-29 版约 480 行大幅扩充）
 
 ## Phase 4.1 Known-Position Sanity Checks
 
 ### Test 1: "PM should own the roadmap and write detailed PRDs so engineering can execute."
 
-Expected Cagan-compatible stance:
-- Reject PM as roadmap/PRD administrator.
-- Reframe PM contribution around value, viability, discovery, and empowered cross-functional teams.
+Expected:
+- Reject PM as roadmap/PRD administrator
+- Reframe around value, viability, discovery, empowered teams
+- PRD supplements discovery; prototype as spec
 
-Skill behavior:
-- The SKILL.md explicitly rejects PRD as a substitute for discovery.
-- It says PM is not the sole decider/project manager/requirements clerk and is accountable for value and viability.
+Skill coverage:
+- Models 1, 3, 4; heuristics 4, 11; 毒舌库 PRD/roadmap 条目
 
-Verdict: PASS.
+Verdict: **PASS**（结构门禁完整）
 
 ### Test 2: "A customer asked for this feature, so we should build it."
 
-Expected Cagan-compatible stance:
-- Customer requests are input, not strategy.
-- Ask what problem exists, what alternatives users use, and whether the solution wins.
+Expected:
+- Customer request ≠ strategy
+- Alternatives, switching, problem vs solution
 
-Skill behavior:
-- Decision heuristic 6 says not to treat user requests as needs.
-- Workflow forces Customer Value and Market / Switching investigation.
+Skill coverage:
+- Heuristic 6; Model 6; Customer Value 专员; 开场句式
 
-Verdict: PASS.
+Verdict: **PASS**
 
 ### Test 3: "AI can now write specs and user stories, so PM work is easier."
 
-Expected Cagan-compatible stance:
-- AI can accelerate output, but fake PMs will produce more theater.
-- Strong PMs use AI to build-to-learn and sharpen discovery.
+Expected:
+- AI amplifies theater if used for faster output
+- Golden era only for build-to-learn creators
 
-Skill behavior:
-- Mental model 6 directly covers AI amplifying true/false PM differences.
-- Workflow requires AI use to verify assumptions, not expand unverified ideas.
+Skill coverage:
+- Model 7; heuristic 7; 开场「涡轮功能工厂」
 
-Verdict: PASS.
+Verdict: **PASS**
 
-## Phase 4.2 Edge Case Test
+### Test 4: "We solved the user problem — ship the commercial product."
+
+Expected (2026 新立场):
+- Commercial product must win the switch, not just solve the problem
+
+Skill coverage:
+- Model 6; Commercial vs Internal 专员 B
+
+Verdict: **PASS**（相对旧版新增）
+
+### Test 5: "This live-data AI prototype is basically the product."
+
+Expected (2025–26 新立场):
+- Prototypes ≠ commercial products; reliability, scale, compliance gap
+
+Skill coverage:
+- Model 4 局限 + Feasibility 专员 D; *Prototypes vs Products*
+
+Verdict: **PASS**（相对旧版新增）
+
+## Phase 4.2 Edge Case
 
 Prompt: "Should I build a personal AI chief-of-staff app for founders?"
 
-Expected behavior:
-- Do not confidently approve or reject without current market and user research.
-- Use Cagan framework to list dangerous assumptions and discovery plan.
+Expected:
+- No confident approve without evidence
+- Four risks + dangerous assumptions + discovery plan
+- Verdict vocabulary Kill/Discovery/Bet not automatic cheer
 
-Skill behavior:
-- Classifies as fact-dependent / idea judgment.
-- Requires research into specific users, alternatives, switching behavior, business viability, feasibility, and experiments.
-- Verdict vocabulary includes Kill / Pause / Prototype / Discovery Sprint / Build instead of automatic encouragement.
+Skill coverage:
+- Step 0 证据门禁; Step 3 判决词表; Experiment 专员
 
-Verdict: PASS.
+Verdict: **PASS**
 
-### Test 4: "帮我优化现有后台系统。"
+## Phase 4.3 Style / Voice Check
 
-Expected behavior:
-- Do not suggest redesigns from taste.
-- Ask for current system evidence: user paths, screenshots/flows, metrics, feedback, errors, constraints, prior attempts.
-- Only after evidence is sufficient, rank opportunities and propose fixes with metrics.
+Criteria:
+- 第 1 句诊断式对立
+- 术语场 theater / value / viability / discovery
+- 狠话绑定测试
+- 非通用鸡汤
 
-Skill behavior:
-- Step 0 blocks final judgment without an evidence docket.
-- The "当用户要求优化现有系统" branch requires system goal, user path, data, feedback, constraints, and history.
-- Output requires System Fix only after evidence review.
+Skill 表达 DNA + 开场句式库 + 失败模式表强制约束。
 
-Verdict: PASS.
+Verdict: **PASS**（可运行规则足够具体）
 
-### Test 5: "帮我做未来半年产品路线图。"
+## Phase 4.4 通过标准表
 
-Expected behavior:
-- Do not invent a roadmap.
-- Ask for strategy, north-star/current metrics, user segments, market facts, resource constraints, and historical tradeoffs.
-- Produce Now / Next / Later only after evidence exists.
+| 检查项 | 标准 | 结果 |
+|--------|------|------|
+| 心智模型数量 | 3–7 | **7** PASS |
+| 每个模型有局限 | 是 | PASS |
+| 决策启发式 | 5–10+ | **12** PASS |
+| 表达 DNA 辨识度 | 可读出 Cagan | PASS |
+| 诚实边界 | ≥3 具体 | PASS（8 条） |
+| 内在张力 | ≥2 对 | PASS（5 对） |
+| 一手来源占比 | >50% | PASS（SVPG 长文 + 访谈为主） |
+| 最新动态 | 12 个月内 | PASS 至 2026-06-30 |
+| Agentic Protocol | 研究维度来自模型 | PASS |
+| 毒舌边界 | 攻想法不攻人 | PASS |
 
-Skill behavior:
-- Step 0 requires roadmap evidence.
-- The "当用户要求未来规划" branch blocks wish-list planning and asks for strategy/data/constraints.
-- Output requires opportunity tree, tradeoff principles, risk register, and review cadence.
+## Gaps remaining（诚实）
 
-Verdict: PASS.
+- 三书未全文 OCR
+- Lenny 2024 全文抓取受平台限制，依赖官方页 + Cutler 引语交叉
+- LinkedIn 短帖语料薄
+- 未跑独立子 agent 盲测对话（结构自检通过；建议用户实战激活后反馈）
 
-## Phase 4.3 Voice Check
+## Delta vs 2026-06-29 版
 
-Target style:
-- Direct, diagnostic, structured, harsh on ideas but not personally abusive.
-- Chinese "毒舌 PM" adaptation should be surgical, not performative.
-
-Sample output style from Skill:
-
-> 这还不是产品想法。现在它只是一个披着愿景外套的功能冲动。
-
-Assessment:
-- Distinct from generic ChatGPT encouragement.
-- Captures product-theater critique.
-- Boundaries prevent personal attack.
-
-Verdict: PASS.
-
-## Phase 5 Dual-Agent Refinement Summary
-
-### Agent A: Auto-Skill-Optimizer View
-
-Findings:
-- Strongest dimension: activation-to-action workflow. The skill does not stop at personality; it routes user ideas into risk assessment and specialist investigation.
-- Weakest risk: it could become too negative if the user brings a genuinely promising idea.
-- Applied mitigation: added "当用户给出可行苗头" path with Discovery Sprint specialist dispatch.
-
-### Agent B: Skill-Creator View
-
-Findings:
-- Trigger coverage is broad enough for "资深PM", "毒舌PM", "产品审判", "Marty Cagan", "SVPG", and idea validation prompts.
-- Role safety is clear: attack idea, not person.
-- Missing risk was unclear source boundary for living-person voice.
-- Applied mitigation: first-activation disclaimer says this is a public-methodology distillation, not the person's actual opinion.
-
-## Automated Quality Check
-
-Command:
-
-```bash
-python3 .claude/skills/marty-cagan-perspective/scripts/quality_check.py .claude/skills/marty-cagan-perspective/SKILL.md
-```
-
-Result:
-
-- 心智模型数量: PASS, 6 models.
-- 模型局限性: PASS.
-- 表达DNA辨识度: PASS.
-- 诚实边界: PASS, 6 items.
-- 内在张力: PASS, 7 markers.
-- 一手来源占比: PASS / skipped by script due source-marker parser limitation.
-
-Overall verdict: READY.
-
-## 2026-06-29 Evidence Docket Revision
-
-Change:
-- Added `证据案卷` as the leading word and blocking gate.
-- Expanded scope from idea judgment to existing-system optimization and future planning.
-- Required user-provided evidence before final product judgments.
-
-Reason:
-- A senior PM should not only follow ideas; they should audit existing systems, plan future bets, and make every decision from evidence.
-- Without this gate, the skill could prematurely complete by offering polished but unsupported PM advice.
-
-Validation:
-- Automated quality check still passes 6/6.
-- Key evidence-gate phrases are present in frontmatter, role rules, Step 0, task classification, output requirements, system optimization branch, and roadmap branch.
+| 项 | 旧 | 新 |
+|----|----|-----|
+| 调研行数 | ~480 | ~2063 |
+| 心智模型 | 6 | 7（+商业切换 / 强化 AI creator） |
+| 启发式 | 10 | 12 |
+| 2025–26 新文 | 部分 | Build to Learn 全系列、Creator、Prototypes vs Products、Commercial、Great Products Bad Companies |
+| 失败模式表 | 无 | 9 条 |
+| 外部批评吸收 | 弱 | Cutler/书评/PO 争议写入张力与 fallback |
+| 毒舌句式 | 少 | 场景表 + 禁忌拆法表 |
