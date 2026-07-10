@@ -76,7 +76,7 @@ flowchart TD
   B --> C["existing-change"]
   B --> D["new-idea"]
   C --> C1["Repo/runtime evidence: Current"]
-  C1 --> E0["pm-grilling: one routed gap at a time"]
+  C1 --> E0["pm-grilling: one routed gap at a time + ACTIVE process force"]
   D --> D0["If needed, define one A-* target/outcome premise"]
   D0 --> D1["Neutral discovery with qualified target users"]
   D1 --> D2["Assumptions and smallest experiment"]
@@ -89,6 +89,12 @@ flowchart TD
   G --> I["Build: both gates and every canonical Build condition pass"]
   H --> J["to-prd / prototype / to-issues / test-scenarios"]
   I --> J
+  E0 --> R["pm-process-retro: combat gap → PL-* → ACTIVE / skill patch"]
+  F --> R
+  J --> R
+  R --> ACTIVE["learnings/ACTIVE.md loaded on next intake/grill"]
+  ACTIVE --> B
+  ACTIVE --> E0
 ```
 
 ## Canonical Evidence Model
@@ -204,6 +210,7 @@ Marty Cagan 式锋利判断在访谈者后台运行；面对目标用户时保�
 - [`pm-grilling`](skills/pm-grilling/SKILL.md): 一次处理一个最高风险缺口，支持 codebase-backed 返工访谈和新想法审判。
 - [`pm-alignment-to-prd`](skills/pm-alignment-to-prd/SKILL.md): 分开审查产品证据与组织对齐，只为 Build 或显式 Bet 生成工程交接。
 - [`marty-cagan`](skills/marty-cagan/SKILL.md): 证据案卷、四风险和直接产品判断。
+- [`pm-process-retro`](skills/pm-process-retro/SKILL.md): 实战流程缺口 → `PL-*` 教训 → ACTIVE 检查表 / skill 补丁；让流程随踩坑迭代。
 
 ### Discovery Inputs
 
@@ -230,6 +237,33 @@ Marty Cagan 式锋利判断在访谈者后台运行；面对目标用户时保�
 
 `to-prd` 和 `to-issues` 默认只写本地持久文件。只有用户明确要求时才发布到外部 issue tracker。
 
+## Process Evolution Loop
+
+产品 discovery 学用户；**流程也要学自己的失败**。纸上谈兵不升级 skill——只有实战里的缺口才能进账本。
+
+```text
+combat (intake / grill / prototype / PRD / rework)
+  → pm-process-retro: one PL-* lesson
+  → record-only | activate-checklist | patch-skill
+  → learnings/ACTIVE.md (and sometimes skill text)
+  → next product run loads ACTIVE as mandatory force
+  → later case validates or marks ineffective
+```
+
+- Skill: [`pm-process-retro`](skills/pm-process-retro/SKILL.md)
+- Live force list: [`skills/pm-process-retro/learnings/ACTIVE.md`](skills/pm-process-retro/learnings/ACTIVE.md)
+- Ledger: [`skills/pm-process-retro/learnings/ledger.md`](skills/pm-process-retro/learnings/ledger.md)
+
+`pm-intake` / `pm-grilling` / `pm-alignment-to-prd` / `prototype` / `to-prd` 在开始时读取 ACTIVE。匹配到的场景行会强制多问规则/AC 或压向 Prototype；它们**不是**产品证据，也不能改写证据模型。
+
+触发示例：相关方返工发现「条件字段/多实体从没被烤」；流程停在标题级 Expected；把线稿全员签字当成 Build 许可。此时先记一条 `PL-*`，再继续产品工作。
+
+改 skill 或 ACTIVE 后执行：
+
+```bash
+./scripts/sync-skills.sh
+```
+
 ## Design Principles
 
 - 用户负责提供真实经历、意图和授权决定；agent 负责先查所有可访问证据。
@@ -240,6 +274,7 @@ Marty Cagan 式锋利判断在访谈者后台运行；面对目标用户时保�
 - PRD records discovery; it never replaces discovery.
 - Build needs evidence and alignment. Bet stays visibly a bet.
 - One entry, one question, one disposition, one next action.
+- Process learns only from combat gaps; ACTIVE force is scenario-gated and versioned via `pm-process-retro`.
 
 ## Repository Layout
 
@@ -259,6 +294,14 @@ skills/
     SKILL.md
     references/existing-change.md
     references/new-idea.md
+  pm-process-retro/
+    SKILL.md
+    references/learning-schema.md
+    references/promote-rules.md
+    learnings/
+      ACTIVE.md          # next runs must load
+      ledger.md
+      cards/
   ... supporting discovery and engineering skills
 ```
 

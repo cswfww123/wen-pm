@@ -30,6 +30,10 @@ The upstream disposition is exactly one of:
 
 If either gate fails, produce only a local blocking-gap report and route to the canonical next disposition. A blocking report contains no solution, `REQ-*`, or `AC-*` sections.
 
+Before drafting, read [`../pm-process-retro/learnings/ACTIVE.md`](../pm-process-retro/learnings/ACTIVE.md) when present. If a matching scenario still lacks forced rules/AC (e.g. conditional-field matrix, multi-entity ops), fail admission and route back to grilling/alignment—not into solution prose.
+
+When a PRD is blocked or a later rework shows the PRD altitude was wrong, recommend one `pm-process-retro` capture so ACTIVE/skills gain the missing force.
+
 ## Steps
 
 ### 1. Gather the source record

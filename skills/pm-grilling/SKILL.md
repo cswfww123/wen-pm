@@ -11,9 +11,11 @@ Turn a conversation into an evidence docket, not a more confident collection of 
 
 Read all of [`marty-cagan`](../marty-cagan/SKILL.md) and the canonical [`evidence model`](../pm-intake/references/evidence-model.md) before the first question. Apply Marty's evidence gate and four risks; use only the evidence fields, types, and strict disposition gates defined by the evidence model.
 
+Also read [`../pm-process-retro/learnings/ACTIVE.md`](../pm-process-retro/learnings/ACTIVE.md) when present. Treat every **matching** scenario line as additional required branch force for this interview (extra rules, AC, or Prototype pressure). ACTIVE lines never redefine evidence types or disposition names.
+
 Marty supplies the judgment lens. This skill supplies the interview protocol: its one-question repeat loop, Interview Mode, canonical dispositions, and Done Output take precedence over Marty's standalone question bundles, tone, and response template. In customer discovery, use the neutral behavior specified below.
 
-Completion criterion: every existing and newly supplied claim can be classified without treating a stakeholder statement, meeting agreement, PRD, or implemented behavior as proof of user value.
+Completion criterion: every existing and newly supplied claim can be classified without treating a stakeholder statement, meeting agreement, PRD, or implemented behavior as proof of user value; matching ACTIVE process force is loaded.
 
 ## 2. Fix the interview state
 
@@ -110,6 +112,11 @@ Completion criterion: a stop condition is cited, exactly one disposition is sele
 ## Contradictions and Open Gaps
 - ...
 
+## Process Force Applied
+- ACTIVE scenarios matched: none | <scenario names>
+- Extra items forced by process memory: ...
+- Process gap to retro (if any): none | one-line candidate for pm-process-retro
+
 ## Four Risks
 - Value: red | yellow | green | UNKNOWN — evidence and gap
 - Usability: red | yellow | green | UNKNOWN — evidence and gap
@@ -142,3 +149,4 @@ Completion criterion: a stop condition is cited, exactly one disposition is sele
 - Use `pm-alignment-to-prd` for `Align`, or to turn an already authorized `Build` / `Bet` into a traceable handoff.
 - After a `decision-alignment` session changes or confirms any material track-specific field—such as Current/Expected/Delta, idea thesis, target segment, outcome, scope, constraints, experiment boundary, or acceptance—use `pm-alignment-to-prd` to create and confirm the matching brief before a subsequent `Discovery`, `Experiment`, or `Prototype`. It must preserve the failed Product Evidence Gate and produce no development handoff.
 - A `Kill`, `Pause`, or `Pivot` route names the one archival, unblock, or re-intake action required; it is never a menu.
+- If this session exposed a **process** hole (missed altitude class, ACTIVE line would have helped but did not exist, consensus treated as evidence, skipped Prototype on complex form/state), route once to [`pm-process-retro`](../pm-process-retro/SKILL.md) to log a `PL-*` **before** or **instead of** writing more product prose—then resume the product disposition.

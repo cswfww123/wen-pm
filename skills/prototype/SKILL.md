@@ -32,6 +32,8 @@ use the UI branch. State the assumption before writing prototype code.
   `NOTES.md`.
 - Delete, absorb, or promote the winning decision when the prototype has served
   its purpose.
+- Read [`../pm-process-retro/learnings/ACTIVE.md`](../pm-process-retro/learnings/ACTIVE.md) when present. If ACTIVE required a Prototype for form IA / multi-entity completion risk and this run was skipped or the wrong question was tested, log a candidate `PL-*` via `pm-process-retro` after recording the product learning.
+- Visual-only preferences (tint, chrome) are not learning questions unless tied to a completion or error metric.
 
 ## Done
 

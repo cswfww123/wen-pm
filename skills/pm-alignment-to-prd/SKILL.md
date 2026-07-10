@@ -14,8 +14,9 @@ Turn a discovery docket into an explicit product decision. Agreement proves what
    - Require `Discovery Track: existing-change | new-idea`.
    - For `existing-change`, read `references/existing-change.md`.
    - For `new-idea`, read `references/new-idea.md`.
+   - Read `../pm-process-retro/learnings/ACTIVE.md` when present; matching scenario force must appear in the gate matrix (usually as Alignment FAIL or explicit Bet) until satisfied.
    - If the track is missing, route to `pm-intake` instead of guessing.
-   - Completion criterion: the track, evidence types, evidence scope, and allowed dispositions are explicit.
+   - Completion criterion: the track, evidence types, evidence scope, and allowed dispositions are explicit; matching ACTIVE process force is listed.
 
 2. **Run two independent gates**
 
@@ -58,6 +59,7 @@ Turn a discovery docket into an explicit product decision. Agreement proves what
    - For `Build` or `Bet`, assign or preserve stable `REQ-*` and `AC-*` IDs, produce acceptance criteria, workflow notes or a Mermaid flowchart, a source-to-test traceability table, the smallest releasable slice, post-release measurement and rollback, and exactly one next skill: `to-prd`, `prototype`, `to-issues`, or `test-scenarios`.
    - For `Bet`, preserve the complete canonical Bet contract and link every downstream `REQ-*` and `AC-*` to its Bet `D-*` and unsupported `A-*` IDs.
    - For `Kill`, `Pause`, `Discovery`, `Experiment`, `Prototype`, `Pivot`, or `Align`, produce the named next learning or decision action and no implementation handoff.
+   - If alignment failed because a **class of inquiry** was never forced by the skills (not merely one missing answer), add a secondary note to run `pm-process-retro` after the product gap is named—so the flow evolves. Do not block the product route on retro completion unless the user asked only for process work.
    - Completion criterion: every acceptance criterion traces through `EV/X -> D -> REQ -> AC -> Test` for Build, or `A + Bet D -> REQ -> AC -> Test` for Bet.
 
 ## Output

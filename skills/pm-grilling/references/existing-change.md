@@ -40,6 +40,7 @@ Ask in this order unless a higher four-risk item can kill the change sooner:
 5. Main, edge, and error flows.
 6. Dependencies, migration, rollout, and regression.
 7. Acceptance examples and success/kill measures.
+8. **ACTIVE process force** (from `pm-process-retro/learnings/ACTIVE.md`): when the subject is multi-entity or multi-section asset forms, insert conditional-field matrix, multi-entity ops, and Prototype pressure into steps 4–7 before claiming the branch complete.
 
 In decision-alignment, show sourced Current behavior and a provisional Delta when that helps the decision owner correct the interpretation. In customer-discovery, ask about the last real encounter with the current behavior: what happened, what they did next, the consequence, and any workaround. Keep proposed fixes and Expected behavior out of the question.
 

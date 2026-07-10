@@ -19,8 +19,9 @@ Inventory every available source: the conversation, live-meeting context, notes 
 - For an existing implementation, trace the relevant user path and current behavior. If the repository has `.codegraph/`, use CodeGraph before text search.
 - Record precise source locations. List inaccessible sources rather than guessing their contents.
 - Treat a meeting quote as a `Stakeholder Statement`, even when it is exact or comes from a customer. A quote never becomes product evidence merely because it appears in minutes or a transcript.
+- **Process memory:** read [`../pm-process-retro/learnings/ACTIVE.md`](../pm-process-retro/learnings/ACTIVE.md) when present. Matching scenario lines are mandatory force on later grilling/alignment; they do not invent product evidence. If this intake is itself about fixing the PM flow after rework, prefer disposition route to `pm-process-retro` before more product docs.
 
-**Completion criterion:** every accessible relevant source has been inspected and cited; every inaccessible relevant source is named; no pending question can already be answered from those sources.
+**Completion criterion:** every accessible relevant source has been inspected and cited; every inaccessible relevant source is named; no pending question can already be answered from those sources; ACTIVE process scenarios that match the subject are noted for the next skill.
 
 ### 2. Classify without asking the user to choose
 
@@ -90,6 +91,8 @@ Use these routes only after the disposition is valid:
 | `Align` | Start `pm-grilling` in `decision-alignment` mode with the first unresolved decision. |
 | `Bet` | Start `pm-alignment-to-prd` and preserve the explicit bet cap, expiry, measurement, and rollback conditions. |
 | `Build` | Start `pm-alignment-to-prd` with the evidence-backed scope and acceptance examples. |
+
+When the highest consequential unknown is **our process** (missed grill altitude, false gates, skill holes) rather than the product bet, route next action to `pm-process-retro` even if the product disposition remains `Align` / `Discovery` / `Pause`. Do not use a fake product disposition to paper over a process gap.
 
 Apply canonical disposition precedence before arranging a dual-role meeting. Within that meeting, complete neutral customer-discovery questions before exposing recommendations, unless a missing authorized decision makes the evidence target undefined; in that case record the decision, recompute the disposition, and run customer discovery afterward. Alignment can clarify intent; it cannot turn a Statement or Decision into product evidence.
 
