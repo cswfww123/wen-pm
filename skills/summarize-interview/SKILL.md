@@ -1,53 +1,107 @@
 ---
 name: summarize-interview
-description: "Summarize a customer interview transcript into a structured template with JTBD, satisfaction signals, and action items. Use when processing interview recordings or transcripts, synthesizing discovery interviews, or creating interview summaries."
+description: Continue a pm-intake transcript route by separating observed behavior, reported history, opinions, and authorized decisions.
 ---
 
-## Summarize Customer Interview
+# Summarize Product Interview
 
-Transform an interview transcript into a structured summary focused on Jobs to Be Done, satisfaction, and action items.
+Produce a source-traceable summary. A transcript proves what was said. Only directly observed or measured facts and scoped experiment results can qualify as product evidence; reported past behavior remains a Statement.
 
-### Context
+Before acting, read all of the canonical [evidence model](../pm-intake/references/evidence-model.md). Use its record schema and promotion rules without inventing stronger evidence types.
 
-You are summarizing a customer interview for the product discovery of **$ARGUMENTS**.
+## Steps
 
-The user will provide an interview transcript — either as an attached file (text, PDF, audio transcription) or pasted directly. Read any attached files first.
+### 1. Read and classify the interview
 
-### Instructions
+Read the full transcript and any demonstrated artifacts. Record whether this was:
 
-1. **Read the full transcript** carefully before summarizing.
+- **User research**: learn past behavior, context, alternatives, outcomes, and constraints.
+- **Stakeholder alignment**: clarify intent, constraints, authority, and decisions.
+- **Mixed**: keep the two evidence streams separate.
 
-2. **Fill in the summary template** below. Use "-" if information is unavailable. Replace numeric values with qualitative descriptions if needed (e.g., "not satisfied").
+Record date, participants, roles, research question, and source location. Use timestamps, line references, or section markers for every material finding.
 
-3. **Use clear, simple language** — a primary school graduate should be able to understand the summary.
+**Complete when:** the full source has been read, interview mode is named, and every participant's role and decision authority are explicit or marked unknown.
 
-### Output Template
+### 2. Separate the evidence streams
 
+Classify each material statement into exactly one primary stream:
+
+- **Direct observation**: an action or artifact demonstrated during the session.
+- **Reported past behavior**: a specific event the participant says already happened; preserve when, context, action, and consequence. It remains a `Stakeholder Statement`, not an observed fact.
+- **Opinion or request**: preference, prediction, proposed solution, generalization, or desired future behavior.
+- **Decision or constraint**: an explicit choice or boundary stated by someone with authority. If authority or commitment is unclear, keep it as a stakeholder statement.
+
+Preserve supplied IDs. Otherwise assign `EV-*` only to directly observed or measured facts, `ST-*` to reported past behavior, opinions, and requests, and `D-*` to authorized decisions or constraints. Every record keeps `ID | Type | Claim | Source | Scope | Support | Strength | Implication`.
+
+Preserve contradictions and negative evidence. Paraphrase faithfully; use short quotes only when wording itself matters.
+
+**Complete when:** every substantive finding has one class and source reference, past behavior is distinct from opinion, and no request has been promoted into observed evidence.
+
+### 3. Synthesize without inventing consensus
+
+Extract:
+
+- trigger, job, desired outcome, and current alternative
+- behavior sequence and frequency where stated
+- time, money, risk, effort, or emotional consequence
+- satisfaction and workaround evidence
+- decisions, their owner, date, scope, and status
+- contradictions, unknowns, and assumptions affected
+
+Use `Not stated` for missing information. For each affected assumption, link the source records and state whether the canonical Product Evidence Gate changed. A Statement can redirect discovery; it cannot pass that gate.
+
+**Complete when:** every synthesis claim traces to a classified finding, decisions retain owner and scope, and unavailable facts remain unavailable.
+
+### 4. Write the durable summary
+
+Save the summary as Markdown in the user's workspace. Follow an existing research-doc convention; otherwise use `docs/research/interviews/YYYY-MM-DD-<participant-or-topic>.md`.
+
+**Complete when:** the file exists locally, contains the source locator, and another reviewer can trace every finding, decision, and assumption update back to the transcript.
+
+## Output Template
+
+```md
+# Interview Summary: <topic>
+
+## Metadata
+- Date:
+- Mode: User research | Stakeholder alignment | Mixed
+- Participants and roles:
+- Decision authority:
+- Research question:
+- Source:
+
+## Direct Observations
+| ID | Type | Claim | Source | Scope | Support | Strength | Implication |
+|---|---|---|---|---|---|---|---|
+
+## Reported Past Behavior
+| ID | Type | Claim | Source | Scope | Support | Strength | Implication |
+|---|---|---|---|---|---|---|---|
+
+## Opinions And Requests
+| ID | Type | Claim | Source | Scope | Support | Strength | Implication |
+|---|---|---|---|---|---|---|---|
+
+## Decisions And Constraints
+| ID | Type | Claim | Source | Scope | Support | Strength | Implication |
+|---|---|---|---|---|---|---|---|
+
+### Decision Details
+| Decision ID | Owner | Date | Scope / status | Revisit trigger |
+|---|---|---|---|---|
+
+## Jobs, Outcomes, And Friction
+- ...
+
+## Contradictions And Unknowns
+- ...
+
+## Assumption Updates
+| Assumption ID | Linked record IDs | Support / contradiction | Product Evidence Gate changed? | Next evidence needed |
+|---|---|---|---|---|
+
+## Follow-ups
+- Owner — action — due date or trigger
 ```
-**Date**: [Date and time of the interview]
-**Participants**: [Full names and roles]
-**Background**: [Background information about the customer]
-
-**Current Solution**: [What solution they currently use]
-
-**What They Like About Current Solution**:
-- [Job to be done, desired outcome, importance, and satisfaction level]
-
-**Problems With Current Solution**:
-- [Job to be done, desired outcome, importance, and satisfaction level]
-
-**Key Insights**:
-- [Unexpected findings or notable quotes]
-
-**Action Items**:
-- [Date, Owner, Action — e.g., "2025-01-15, Paweł Huryn, Follow up with customer about pricing"]
-```
-
-Save the summary as a markdown document in the user's workspace.
-
----
-
-### Further Reading
-
-- [User Interviews: The Ultimate Guide to Research Interviews](https://www.productcompass.pm/p/interviewing-customers-the-ultimate)
-- [Continuous Product Discovery Masterclass (CPDM)](https://www.productcompass.pm/p/cpdm) (video course)

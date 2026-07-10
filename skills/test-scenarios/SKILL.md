@@ -1,86 +1,78 @@
 ---
 name: test-scenarios
-description: "Create comprehensive test scenarios from user stories with test objectives, starting conditions, user roles, step-by-step actions, and expected outcomes. Use when writing QA test cases, creating test plans, defining acceptance tests, or preparing for feature validation."
+description: Turn a canonical Build or complete bounded Bet handoff into local traceable behavior and regression scenarios.
 ---
+
 # Test Scenarios
 
-Create comprehensive test scenarios from user stories with test objectives, starting conditions, user roles, step-by-step test actions, and expected outcomes.
+Create observable scenarios that preserve the approved product decision. Tests prove implementation matches the contract; they do not validate user value by themselves.
 
-**Use when:** Writing QA test cases, creating test plans, defining acceptance test scenarios, or validating user story implementations.
+Before acting, read the canonical [evidence model](../pm-intake/references/evidence-model.md).
 
-**Arguments:**
-- `$PRODUCT`: The product or system name
-- `$USER_STORY`: The user story to test (title and acceptance criteria)
-- `$CONTEXT`: Additional testing context or constraints
+## Readiness
 
-## Step-by-Step Process
+Require:
 
-1. **Review the user story** and acceptance criteria
-2. **Define test objectives** - What specific behavior to validate
-3. **Establish starting conditions** - System state, data setup, configurations
-4. **Identify user roles** - Who performs the test actions
-5. **Create test steps** - Break down interactions step-by-step
-6. **Define expected outcomes** - Observable results after each step
-7. **Consider edge cases** - Invalid inputs, boundary conditions
-8. **Output detailed test scenarios** - Ready for QA execution
+- a source PRD or alignment artifact with version and `Discovery Track`;
+- canonical disposition `Build` with every Build condition satisfied, or `Bet` with the complete canonical Bet contract;
+- stable `D-*`, `REQ-*`, and `AC-*` IDs;
+- for Build, qualifying `EV-*` / `X-*`; for Bet, unsupported `A-*` plus the authorizing Bet `D-*`;
+- stable protected-behavior and regression locators—such as `REQ-*`, `AC-*`, or source-artifact section anchors—when the track is `existing-change`.
 
-## Scenario Template
+If readiness fails, route to `pm-alignment-to-prd` and create no scenarios.
 
-**Test Scenario:** [Clear scenario name]
+## Steps
 
-**Test Objective:** [What this test validates]
+1. **Build the trace map**
+   - For Build, map `EV/X -> D -> REQ -> AC`.
+   - For Bet, map `A + Bet D -> REQ -> AC` and preserve the cap, expiry, measurement, rollback, and kill threshold.
+   - Completion criterion: every acceptance criterion has one complete authorization-specific source chain and no Bet assumption appears as validated evidence.
 
-**Starting Conditions:**
-- [System state required]
-- [Data or configuration needed]
-- [User setup or permissions]
+2. **Create behavior scenarios**
+   - Assign stable IDs (`SCN-001`, ...).
+   - For each acceptance criterion, specify objective, actor, starting state, trigger, actions, and observable outcomes.
+   - Cover main, exception, error, permission, boundary, empty, and recovery states when relevant.
+   - Completion criterion: every `AC-*` is exercised by at least one `SCN-*`, and every scenario cites its source artifact/version and authorization.
 
-**User Role:** [Who performs the test]
+3. **Protect existing behavior**
+   - For `existing-change`, add regression scenarios for every Keep item and affected integration, migration, or compatibility boundary.
+   - Completion criterion: every protected-behavior and regression locator maps to a scenario or an explicit test deferral with owner and review point.
 
-**Test Steps:**
-1. [First action and its expected result]
-2. [Second action and observable outcome]
-3. [Third action and system behavior]
-4. [Completion action and final state]
+4. **Choose the test seam**
+   - Prefer the highest stable seam that observes the agreed behavior; use lower-level tests only for logic that cannot be verified there.
+   - Completion criterion: every scenario names an observable seam and expected result without inventing implementation details.
 
-**Expected Outcomes:**
-- [Observable result 1]
-- [Observable result 2]
-- [Observable result 3]
+5. **Save locally**
+   - Follow the repository's test-plan convention; otherwise save `docs/test-plans/<source-slug>.md`.
+   - Completion criterion: the local file exists, all `SCN-*` and source links resolve, and the trace map has no orphan `REQ-*`, `AC-*`, protected behavior, or scenario.
 
-## Example Test Scenario
+## Output
 
-**Test Scenario:** View Recently Viewed Products on Product Page
+```md
+## Metadata
+- Source artifact / version:
+- Discovery Track:
+- Authorization: Build | Bet
+- Bet Contract: None | D-... / A-... / cap / expiry / measurement / rollback / kill
 
-**Test Objective:** Verify that the 'Recently viewed' section displays correctly and excludes the current product.
+## Traceability
+| Evidence or Bet Assumption | Authorization Decision | Requirement | Acceptance Criterion | Protected / Regression Locator | Scenario |
+| --- | --- | --- | --- | --- | --- |
 
-**Starting Conditions:**
-- User is logged in or has browser history enabled
-- User has viewed at least 2 products in the current session
-- User is now on a product page different from previously viewed items
+## SCN-001 — <name>
+- Source artifact / version:
+- Authorization: Build | Bet
+- Objective:
+- Actor:
+- Starting State:
+- Trigger:
+- Steps And Observable Outcomes:
+  1. ...
+- Edge / Error / Recovery Coverage:
+- Test Seam:
+- Source IDs: EV/X or A + Bet D; REQ; AC
 
-**User Role:** Online Shopper
-
-**Test Steps:**
-1. Navigate to any product page → Section should appear at bottom with previously viewed items
-2. Scroll to bottom of page → "Recently viewed" section is visible with product cards
-3. Verify product thumbnails → Images, titles, and prices are displayed correctly
-4. Check current product → Current product is NOT in the recently viewed list
-5. Click on a product card → User navigates to the corresponding product page
-
-**Expected Outcomes:**
-- Recently viewed section appears only after viewing at least 1 prior product
-- Section displays 4-8 product cards with complete information
-- Current product is excluded from the list
-- Each card shows "Viewed X minutes/hours ago" timestamp
-- Clicking cards navigates to correct product pages
-- Performance: Section loads within 2 seconds
-
-## Output Deliverables
-
-- Comprehensive test scenarios for each acceptance criterion
-- Clear test objectives aligned with user story intent
-- Detailed step-by-step test actions
-- Observable expected outcomes after each step
-- Edge case and error scenario coverage
-- Ready for QA team execution and documentation
+## Deferred Coverage
+| Risk | Reason | Owner | Review Point |
+| --- | --- | --- | --- |
+```

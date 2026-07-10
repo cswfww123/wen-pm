@@ -1,64 +1,71 @@
 ---
 name: opportunity-solution-tree
-description: "Build an Opportunity Solution Tree (OST) to structure product discovery — map a desired outcome to opportunities, solutions, and experiments. Based on Teresa Torres' Continuous Discovery Habits. Use when structuring discovery work, mapping opportunities to solutions, or deciding what to build next."
+description: Continue an evidenced pm-intake docket by mapping one outcome to opportunities, alternative solutions, and falsifiable experiments.
 ---
 
-## Opportunity Solution Tree (OST)
+# Opportunity Solution Tree
 
-A visual framework for structuring continuous product discovery. Connects a desired **outcome** to customer **opportunities**, possible **solutions**, and **experiments** to validate them.
+Map one outcome to evidenced opportunities, multiple solutions, and tests. A tree organizes discovery; it does not turn weak evidence into permission to build.
 
-### Domain Context
+## Steps
 
-The **Opportunity Solution Tree** (Teresa Torres, *Continuous Discovery Habits*) is the backbone of modern product discovery. It prevents teams from jumping to solutions by forcing them to first map the opportunity space.
+1. **Load the evidence model**
+   - Read `../pm-intake/references/evidence-model.md` and the current Evidence Ledger.
+   - Completion criterion: evidence type, strength, and supported claim scope are known for every input used below.
 
-**Structure (4 levels):**
+2. **Set one desired outcome**
+   - Use one measurable product or business result, baseline, target, and time horizon.
+   - Completion criterion: exactly one outcome anchors the tree; competing outcomes are deferred explicitly.
 
-1. **Desired Outcome** (top) — The measurable business or product outcome the team is pursuing. Should be a single, clear metric (e.g., "increase 7-day retention to 40%"). This comes from your OKRs or product strategy.
+3. **Map evidenced opportunities**
+   - Derive 3-7 needs, pains, or desired outcomes from research and observed behavior, not requested features.
+   - Attach evidence IDs, segment, current alternative, frequency, pain strength, and contradictions.
+   - Completion criterion: every opportunity cites in-scope evidence; unsupported opportunities are labeled Assumptions.
 
-2. **Opportunities** (second level) — Customer needs, pain points, or desires discovered through research. These are problems worth solving — not features. Frame them from the customer's perspective: "I struggle to..." or "I wish I could..." Prioritize using Opportunity Score: **Importance × (1 − Satisfaction)** (Dan Olsen, *The Lean Product Playbook*). Normalize Importance and Satisfaction to 0–1.
+4. **Prioritize opportunities**
+   - Compare user impact, business impact, reach, evidence strength, and satisfaction with the current alternative.
+   - Select at most three opportunities for solution exploration.
+   - Completion criterion: priority reflects both opportunity size and evidence quality.
 
-3. **Solutions** (third level) — Possible ways to address each opportunity. Generate multiple solutions per opportunity — don't commit to the first idea. The **Product Trio** (PM + Designer + Engineer) should ideate together. "Best ideas often come from engineers."
+5. **Generate alternatives and assumptions**
+   - Generate at least three materially different solutions per selected opportunity, including doing nothing or changing the process.
+   - Identify each solution's load-bearing value, usability, feasibility, and viability assumptions.
+   - Completion criterion: no opportunity advances with only the first proposed solution.
 
-4. **Experiments** (bottom) — Fast, cheap tests to validate whether a solution actually addresses the opportunity. Use assumption testing (Value, Usability, Viability, Feasibility risks). Prefer experiments with "skin-in-the-game" (Alberto Savoia) over opinion-based validation.
+6. **Design falsifiable experiments**
+   - For the riskiest assumption, invoke `brainstorm-experiments-existing` or `brainstorm-experiments-new` for the current Discovery Track. Preserve the returned complete `EXP-*` protocol; the tree itself only links the `A-*` branch to that protocol.
+   - Apply the canonical disposition gates: use `Discovery` when evidence is not yet test-ready, `Prototype` for a disposable usability/feasibility question, `Pause` only for a named blocker, and `Kill` or `Pivot` only when their evidence gate already passes.
+   - Completion criterion: every selected branch ends in exactly one gated `Discovery`, `Experiment`, `Prototype`, `Pause`, `Kill`, or `Pivot` action, never direct implementation.
 
-**Key principles:**
+## Output
 
-- **One outcome at a time.** Don't try to solve everything. Focus the tree on a single desired outcome.
-- **Opportunities, not features.** "Never allow customers to design solutions. Prioritize opportunities (problems), not features."
-- **Compare and contrast.** Always generate at least 3 solutions per opportunity before choosing. Avoid the "first idea" trap.
-- **Discovery is not linear.** Loop back if experiments fail. Kill solutions that don't validate. Explore new branches.
-- **Continuous, not periodic.** Update the tree weekly as you learn from interviews, analytics, and experiments.
+```md
+## Desired Outcome
+...
 
-### Instructions
+## Opportunity Register
+| Opportunity | Segment | Current alternative | Frequency / reach | Pain strength | Evidence IDs / strength | Contradictions | Priority |
+| --- | --- | --- | --- | --- | --- | --- | --- |
 
-You are helping a product team build an Opportunity Solution Tree for **$ARGUMENTS**.
+## Opportunity Solution Tree
+Outcome
+└── Opportunity [Evidence IDs]
+    ├── Solution A [Assumption IDs]
+    │   └── EXP-* [A-*; success / kill / inconclusive]
+    ├── Solution B
+    └── Do nothing / process alternative
 
-### Input Requirements
-- A desired outcome or business metric to improve
-- Customer research data (interviews, surveys, analytics, feedback)
-- Optionally: existing opportunities or solution ideas to organize
+## Experiment Protocol
+For an `Experiment` disposition, embed the complete output of the matching brainstorm-experiments skill, including hypothesis, method, metric, sample, all three thresholds, all three next dispositions, guardrails, owner, and EXP/A linkage.
 
-### Process
+## Evidence Gaps And Contradictions
+...
 
-1. **Define the desired outcome** — Confirm or help articulate a single, measurable outcome at the top of the tree.
+## Disposition
+Discovery | Experiment | Prototype | Pause | Kill | Pivot
 
-2. **Map opportunities** — From provided research, identify 3-7 customer opportunities (needs/pains). Group related opportunities. Frame each from the customer's perspective.
-
-3. **Prioritize opportunities** — Use Opportunity Score or qualitative assessment to rank. Focus on the top 2-3.
-
-4. **Generate solutions** — For each prioritized opportunity, brainstorm 3+ solutions from PM, Designer, and Engineer perspectives.
-
-5. **Design experiments** — For the most promising solutions, suggest 1-2 fast experiments. Specify: hypothesis, method, metric, success threshold.
-
-6. **Visualize the tree** — Present the full OST in a clear hierarchical format.
-
-Think step by step. Save as markdown if substantial.
-
----
-
-### Further Reading
-
-- [The Extended Opportunity Solution Tree](https://www.productcompass.pm/p/the-extended-opportunity-solution-tree)
-- [What Is Product Discovery? The Ultimate Guide Step-by-Step](https://www.productcompass.pm/p/what-exactly-is-product-discovery)
-- [Product Trio: Beyond the Obvious](https://www.productcompass.pm/p/product-trio)
-- [Continuous Product Discovery Masterclass (CPDM)](https://www.productcompass.pm/p/cpdm) (video course)
+## One Next Action
+- Supporting IDs:
+- Owner:
+- Completion signal:
+```

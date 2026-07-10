@@ -1,89 +1,142 @@
 ---
 name: to-issues
-description: Break a PRD, plan, or spec into vertical-slice issues.
-disable-model-invocation: true
+description: Continue an authorized traceable PRD by writing local vertical-slice issue files.
 ---
 
 # To Issues
 
-Break a plan, spec, or PRD into independently grabbable tracer-bullet issues.
+Turn a ready PRD into independently verifiable tracer-bullet issues. Preserve product evidence and decisions through delivery; slicing does not rewrite the requirement.
 
-The issue tracker and triage label vocabulary should come from `/setup-project-harness`.
+Before acting, read all of the canonical [evidence model](../pm-intake/references/evidence-model.md). Preserve its records and the source disposition; a `Bet` remains labeled and bounded in every downstream issue.
 
-## Process
+## Admission Gate
 
-### 1. Gather Context
+The source must provide:
 
-Work from the current conversation. If the user passes an issue number, URL, or path, fetch it from the configured issue tracker and read its body and comments.
+- status `Ready for delivery review`, an owner, and disposition `Build` or `Bet`
+- passed alignment and delivery authorization gates
+- in-scope and out-of-scope behavior
+- stable `REQ-*` and `AC-*` IDs
+- evidence or bounded-Bet and `D-*` references for every requirement
+- the complete canonical Bet contract when disposition is `Bet`
 
-### 2. Explore The Codebase
+On any failure, save only a local blocking-gap report at `docs/issues/<prd-slug>-blocked.md` or the repository's equivalent, then stop. The report names the source, missing items, owner, next canonical disposition, action, and exit condition; it contains no `ISS-*` drafts.
 
-If you have not already explored the codebase, do so enough to understand the current shape. Use the project's domain glossary vocabulary and respect relevant ADRs.
+## Steps
 
-When the vertical slice boundaries depend on existing behavior, trace the relevant entrypoint before deciding blockers, integration layers, prefactoring, or test seams.
+### 1. Gather and trace the source
 
-Look for useful prefactoring opportunities. Make the change easy, then make the easy change.
+Read the PRD, its canonical records, decisions, acceptance criteria, and repository context. Preserve `EV-*`, `ST-*`, `D-*`, `A-*`, `X-*`, `REQ-*`, and `AC-*` IDs. When slice boundaries depend on existing behavior, trace the entrypoint, integration path, state changes, permissions, migrations, and test seams.
 
-### 3. Draft Vertical Slices
+**Complete when:** the admission gate passes, every in-scope requirement and acceptance criterion is in a coverage ledger, and each repository-dependent boundary has a source.
 
-Break the plan into tracer-bullet issues. Each issue is a thin vertical slice through all required integration layers, not a horizontal slice of one layer.
+### 2. Draft vertical tracer bullets
 
-Each slice should:
+Create stable issue IDs (`ISS-001`, ...). Each issue delivers the thinnest complete actor or business outcome through every required layer and is verifiable on its own. Fold enabling refactoring into the first slice that needs it unless the refactor has an independently verifiable safety outcome.
 
-- deliver a narrow but complete path through the system
-- be demoable or verifiable on its own
-- put any required prefactoring before dependent behavior
+For each issue record:
 
-### 4. Quiz The User
+- end-to-end behavior and actor outcome
+- covered `REQ-*` and unchanged `AC-*` IDs
+- inherited evidence, assumption, experiment-result, and decision IDs
+- `Build` or `Bet` authorization; Bet issues inherit cap, expiry, measurement, rollback, and kill boundaries
+- explicit exclusions, repository-grounded verification seam, and necessary blockers
 
-Present the proposed breakdown as a numbered list. For each slice, show:
+**Complete when:** every issue is independently verifiable, no issue is merely a UI/API/database horizontal layer, and every blocker is necessary for its dependent outcome.
 
-- title
-- blocked-by relationships
-- user stories covered, if the source material has them
+### 3. Validate coverage and dependencies
 
-Ask whether the granularity feels right, dependencies are correct, and any slices should merge or split.
+Check that:
 
-Iterate until the user approves the breakdown.
+- every in-scope `REQ-*` is covered by at least one issue
+- every `AC-*` appears unchanged in the issue that verifies it
+- no issue introduces behavior without a requirement and decision
+- shared requirements have one owning issue and named consumers
+- dependencies are acyclic and blockers precede dependents
+- protected, out-of-scope, and deferred behavior remain preserved
 
-### 5. Publish Issues
+Update the PRD's issue column when it is locally editable; otherwise hold the complete mapping in the issue index.
 
-Publish each approved slice to the configured issue tracker. Publish blockers first so later issues can reference real identifiers.
+**Complete when:** the ledger has no orphan requirement or acceptance criterion, no untraceable issue behavior, and no dependency cycle.
 
-Use the correct `ready-for-agent` triage label unless instructed otherwise. Do not close or modify any parent issue.
+### 4. Save the local issue package
+
+Follow the repository's issue convention. If none exists, write:
+
+```text
+docs/issues/<prd-slug>/index.md
+docs/issues/<prd-slug>/01-<issue-slug>.md
+docs/issues/<prd-slug>/02-<issue-slug>.md
+```
+
+The local index and issue files are authoritative.
+
+**Complete when:** the index and every issue file exist locally, all links resolve, and their IDs, authorization, and traceability match the coverage ledger.
+
+### 5. Optionally publish
+
+Create external tracker issues only when the user explicitly asks. Publish blockers first, preserve local IDs in external bodies, then write returned URLs or identifiers back to the local index and files.
+
+**Complete when:** either no external action was requested, or every successful publication has a local-to-external mapping and failures remain visibly unpublished.
+
+## Blocking Report Template
+
+```md
+# Issue Slicing Blocked: <source>
+
+| Missing gate item | Source | Owner | Canonical disposition | Required action | Exit condition |
+|---|---|---|---|---|---|
+```
+
+## Issue Index Template
+
+```md
+# Issue Plan: <PRD>
+
+## Metadata
+- Source PRD / version:
+- Source disposition: Build | Bet
+- External tracker: Not requested | <reference>
+
+## Coverage And Order
+| Order | Issue | Outcome | Requirements | Acceptance | Evidence / Bet | Decisions | Authorization | Blocked by | External ID |
+|---:|---|---|---|---|---|---|---|---|---|
+```
 
 ## Issue Template
 
 ```md
-## Parent
+# ISS-001 — <Outcome-oriented title>
 
-<Reference to the parent issue, if the source was an existing issue. Omit otherwise.>
+## Source And Traceability
+- Source PRD / version:
+- Requirements:
+- Acceptance criteria:
+- Evidence / assumptions / experiment results:
+- Decisions:
+- Authorization: Build | Bet
+
+## Bet Boundaries
+Omit for Build. For Bet: cap, expiry, measurement, rollback, and kill threshold inherited from the PRD.
+
+## Outcome
+<Actor-visible or business-visible result.>
 
 ## What To Build
-
-<Concise end-to-end behavior for this vertical slice. Avoid layer-by-layer implementation notes.>
-
-Avoid specific file paths or code snippets because they go stale quickly.
-
-Exception: if a prototype produced a concise snippet that encodes a decision more precisely than prose can, inline only the decision-rich part and label it as prototype-derived.
+<Narrow end-to-end behavior, including relevant alternate and error behavior.>
 
 ## Acceptance Criteria
+- [ ] AC-... — <preserve source wording>
 
-- [ ] Criterion 1
-- [ ] Criterion 2
-- [ ] Criterion 3
+## Verification
+- seam, observable result, and guardrails
+
+## Out Of Scope
+- ...
 
 ## Blocked By
+- None | ISS-... — <reason>
 
-- <Blocking ticket reference>
-
-Or: None - can start immediately
+## External Reference
+- Not requested | <URL or ID>
 ```
-
-## Related Skills
-
-- `/alignment-review` — check issue slices match the PRD and are truly vertical
-- `/to-test-plan` — define test cases while requirements are fresh
-- `/implement` — work the issues one at a time
-
-Use any, in any order; this skill prescribes no sequence.

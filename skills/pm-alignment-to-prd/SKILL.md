@@ -1,128 +1,118 @@
 ---
 name: pm-alignment-to-prd
-description: Use when PM discovery has a settled docket and the user needs stakeholder, customer, or user alignment, a PRD, flow notes, acceptance criteria, or a handoff into Matt Pocock engineering skills.
+description: Continue a settled decision-alignment docket through a track-specific confirmation brief and disposition; emit a PRD-ready handoff only for canonical Build or a complete bounded Bet.
 ---
 
 # PM Alignment To PRD
 
-Convert a settled PM docket into explicit agreement and then into development input.
-
-## Readiness Gate
-
-Proceed only when the docket states:
-
-- target user or role
-- source evidence for material claims
-- current alternative
-- pain strength
-- desired outcome
-- scope and out of scope
-- success metric
-- value, usability, feasibility, and viability risks
-- kill criterion or explicit reason no kill criterion applies
-
-If an item is missing, route back to `pm-grilling` with the highest-risk missing question.
+Turn a discovery docket into an explicit product decision. Agreement proves what the team chose; evidence proves whether the choice deserves investment. Keep those judgments separate.
 
 ## Steps
 
-1. **Write the stakeholder alignment brief**
-   Create a stakeholder-facing brief that can be read back for confirmation:
-   - Original input/source evidence
-   - PM interpretation
-   - Requirement restatement
-   - Problem
-   - Target user/role
-   - Current alternative
-   - Desired outcome
-   - Confirmed decisions
-   - Pending confirmation
-   - Proposed solution shape
-   - Scope
-   - Out of scope
-   - Business workflow: actors, trigger, main flow, exception flow, boundaries
-   - Success metric
-   - Open risks
-   - Kill criterion
-   - Confirmation status
-   Completion criterion: every readiness-gate item appears exactly once, and every material stakeholder-facing claim links to source evidence or is marked as an assumption.
+1. **Load the decision model**
+   - Read `../pm-intake/references/evidence-model.md`.
+   - Require `Discovery Track: existing-change | new-idea`.
+   - For `existing-change`, read `references/existing-change.md`.
+   - For `new-idea`, read `references/new-idea.md`.
+   - If the track is missing, route to `pm-intake` instead of guessing.
+   - Completion criterion: the track, evidence types, evidence scope, and allowed dispositions are explicit.
 
-2. **Ask for explicit agreement**
-   Ask the relevant stakeholder, customer, or user to confirm, correct, or mark disputed sections. Treat silence or vague approval as unresolved for disputed/high-risk items.
-   Completion criterion: each section is marked approved, changed, or disputed.
+2. **Run two independent gates**
 
-3. **Red-team risky agreement**
-   If approved sections still contain load-bearing assumptions, route to `strategy-red-team` before generating a development handoff.
-   Completion criterion: every load-bearing assumption is either backed by evidence, assigned a cheap test, or explicitly accepted as a risk.
+   **Product Evidence Gate**
+   - Apply the canonical Product Evidence Gate verbatim to every load-bearing Value, Usability, Feasibility, and Viability claim.
+   - Any unresolved load-bearing Assumption makes this gate `FAIL`. Declared success, kill, and inconclusive thresholds make an `Experiment` eligible; they are not evidence and cannot make this gate pass.
+   - Use the canonical `Support` field and evidence qualification rules without local exceptions or synonyms.
 
-4. **Generate development input**
-   After approval, produce:
-   - PRD-ready summary
-   - Flow notes or a mermaid flowchart when a workflow exists
-   - Acceptance criteria
-   - Prototype question, if one uncertainty should be tested before build
-   - Matt handoff: `to-prd`, `to-issues`, `prototype`, or `test-scenarios`
-   Completion criterion: the output names exactly one next Matt skill unless the recommendation is to continue PM discovery.
+   **Alignment Gate**
+   - Target user or role, problem, desired outcome, intended behavior, scope, out of scope, workflow, business rules, constraints, success metric, scenario-level acceptance examples, and decision owner are explicit.
+   - Every authorizable alignment item is backed by a traceable `D-*` record from the correct owner. Any unresolved or disputed material item makes this gate `FAIL`.
+   - Every track-specific requirement in the selected reference is present.
+
+   Completion criterion: both gates are shown as `PASS | FAIL`, and every failed row names its evidence or decision owner and one next action.
+
+3. **Write the track-specific alignment brief**
+   - Preserve the Evidence Ledger, Terms Clarified, and Decision Log from discovery.
+   - Link every material claim to an evidence item, decision, or explicit assumption.
+   - Use the selected track reference as the stakeholder-facing brief and readiness checklist.
+   - Completion criterion: no material statement appears without a type, source, and supported claim scope.
+
+4. **Collect role-correct confirmation**
+   - Customers and users confirm their observed experience and correct factual misunderstandings.
+   - The accountable decision owner confirms intent, scope, trade-offs, success criteria, and any bounded bet.
+   - Engineering or technical owners confirm feasibility claims.
+   - Sales, operations, finance, legal, support, or other owners confirm the viability claims they own.
+   - Mark every authorizable section `Approved | Changed — re-confirmation required | Disputed`. Merge a change back into the ledger, then read the revised wording back; only final `Approved` wording or an exact replacement `D-*` can pass Alignment.
+   - Record confirmations as `ST-*` or authorized `D-*`. Confirmation changes only the Alignment Gate; the Product Evidence Gate changes only when the confirmation points to a qualifying existing `EV-*` or `X-*` record under the canonical scope and strength rules.
+   - Mark evidence-only sections `Validated | Unvalidated | Contradicted` from the canonical gate. They need an evidence owner and next action, not customer approval, and may remain Unvalidated while the disposition routes to Discovery.
+   - Completion criterion: every authorizable section is finally Approved by the correct role, every evidence gap has a status, owner, and action, silence and generic approval remain unresolved, and no confirmation has been promoted into product evidence.
+
+5. **Red-team and decide**
+   - When load-bearing assumptions remain, mark the Product Evidence Gate `FAIL` and run `strategy-red-team` only to select `Discovery`, `Experiment`, `Prototype`, or a canonical `Bet`; the work is not a proposed `Build`.
+   - Choose exactly one disposition from the canonical model.
+   - `Build` requires both gates to pass and every canonical `Build` condition to pass.
+   - Apply the canonical `Bet` gate verbatim. A partial Bet contract is not authorization; label a complete Bet as not evidence-backed.
+   - Completion criterion: exactly one disposition is justified by ledger item IDs and no failed gate is hidden inside `Build`.
+
+6. **Generate the development handoff only when authorized**
+   - For `Build` or `Bet`, assign or preserve stable `REQ-*` and `AC-*` IDs, produce acceptance criteria, workflow notes or a Mermaid flowchart, a source-to-test traceability table, the smallest releasable slice, post-release measurement and rollback, and exactly one next skill: `to-prd`, `prototype`, `to-issues`, or `test-scenarios`.
+   - For `Bet`, preserve the complete canonical Bet contract and link every downstream `REQ-*` and `AC-*` to its Bet `D-*` and unsupported `A-*` IDs.
+   - For `Kill`, `Pause`, `Discovery`, `Experiment`, `Prototype`, `Pivot`, or `Align`, produce the named next learning or decision action and no implementation handoff.
+   - Completion criterion: every acceptance criterion traces through `EV/X -> D -> REQ -> AC -> Test` for Build, or `A + Bet D -> REQ -> AC -> Test` for Bet.
 
 ## Output
 
 ```md
-## Stakeholder Alignment Brief
+## Alignment Decision
 
-### Original Input / Source Evidence
+- Discovery Track: existing-change | new-idea
+- Product Evidence Gate: PASS | FAIL
+- Alignment Gate: PASS | FAIL
+- Disposition: Kill | Pause | Discovery | Experiment | Prototype | Pivot | Align | Bet | Build
+- Decision Owner: ...
+- Rationale: EV-... / ST-... / D-... / A-... / X-...
 
-### PM Interpretation
+## Gate Matrix
+| Gate | Required claim or decision | PASS / FAIL | Qualifying IDs | Owner | One next action / exit condition |
+| --- | --- | --- | --- | --- | --- |
 
-### Requirement Restatement
+## Track-Specific Alignment Brief
+...
 
-### Problem
+## Evidence Ledger
+...
 
-### Target User
+## Terms Clarified
+...
 
-### Current Alternative
+## Decision Log
+...
 
-### Desired Outcome
+## Confirmation Matrix
+| Section | Section Type: authorizable / evidence | Correct Owner | Status | Evidence/Decision | Re-confirmed? / Next action |
+| --- | --- | --- | --- | --- | --- |
 
-### Confirmed Decisions
+## Bet Contract
+Present only for Bet: unsupported A-* IDs, authorizing D-*, investment cap, expiry date, measurement plan, rollback path, and kill threshold.
 
-### Pending Confirmation
-
-### Solution Shape
-
-### Scope
-
-### Out Of Scope
-
-### Business Workflow
-
-#### Actors
-
-#### Trigger
-
-#### Main Flow
-
-#### Exception Flow
-
-#### Boundaries
-
-### Success Metric
-
-### Open Risks
-
-### Kill Criterion
-
-### Confirmation Status
-- Confirmed
-- Needs Changes
-- Still Disputed
-
-## Development Input
+## Development Handoff
+Present only for Build or Bet.
 
 ### Acceptance Criteria
+- AC-... — ...
+
+### Release Slice
+- Smallest releasable scope: ...
+- Post-release measurement: ...
+- Rollback: ...
 
 ### Flow
+...
 
-### Prototype Question
+### Traceability
+| Evidence / Assumption / Result | Decision | Requirement ID | Acceptance ID | Authorization | Test |
+| --- | --- | --- | --- | --- | --- |
 
-### Matt Handoff
-to-prd | to-issues | prototype | test-scenarios | strategy-red-team | continue pm-grilling
+### Next Skill
+to-prd | prototype | to-issues | test-scenarios
 ```

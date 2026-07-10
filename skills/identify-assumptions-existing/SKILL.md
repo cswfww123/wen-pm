@@ -1,44 +1,82 @@
 ---
 name: identify-assumptions-existing
-description: "Identify risky assumptions for a feature idea in an existing product across Value, Usability, Viability, and Feasibility. Uses multi-perspective devil's advocate thinking. Use when stress-testing a feature idea, doing risk assessment, or preparing for assumption mapping."
+description: Continue a classified existing-change docket by extracting its load-bearing assumptions before prioritization.
 ---
 
-## Identify Assumptions (Existing Product)
+# Identify Assumptions: Existing Product
 
-Devil's advocate analysis to surface risky assumptions across four risk areas.
+Turn the proposed change into falsifiable assumptions. Current behavior is evidence of what exists, not proof that the behavior is valuable or intended.
 
-### Context
+Before acting, read all of the canonical [evidence model](../pm-intake/references/evidence-model.md). Preserve its record schema, product-evidence gate, and dispositions.
 
-You are stress-testing a feature idea for **$ARGUMENTS**.
+## Steps
 
-If the user provides files (designs, PRDs, research), read them first.
+### 1. Establish the current-state evidence
 
-### Instructions
+Read the supplied docket, research, product artifacts, and codebase evidence. When code is in scope, trace the relevant entrypoint, tests, state transitions, and constraints before asking questions the repository can answer.
 
-The user will describe their product, objective, market segment, and feature idea. Work through these steps:
+Record:
 
-1. **Think from three perspectives** about why this feature might fail:
-   - **Product Manager perspective**: Business viability, market fit, strategic alignment
-   - **Designer perspective**: Usability, user experience, adoption barriers
-   - **Engineer perspective**: Technical feasibility, performance, integration challenges
+- current behavior and its source
+- proposed behavior and its source
+- the explicit `Current -> Expected -> Delta`
+- target actor, triggering situation, present workaround, and desired outcome
+- known constraints, metrics, complaints, and prior attempts
 
-2. **Identify assumptions across four risk areas**:
-   - **Value**: Will it create value for customers? Does it solve a real problem?
-   - **Usability**: Will users figure out how to use it? Is the learning curve acceptable?
-   - **Viability**: Can marketing, sales, finance, and legal support it?
-   - **Feasibility**: Can it be built with existing technology? Are there integration risks?
+Preserve the canonical evidence ledger and classify every source through that model. A request or decision can define intent; it does not prove value.
 
-3. **For each assumption**, note:
-   - What specifically could go wrong
-   - How confident you are (High/Medium/Low)
-   - Suggested way to test it
+**Complete when:** every current-state claim has a source, the delta is explicit, and unknowns are labeled rather than inferred.
 
-Think step by step. Be thorough but constructive — the goal is to strengthen the idea, not kill it.
+### 2. Extract load-bearing assumptions
 
----
+Write assumptions as claims that can be proven wrong. Cover all four risks:
 
-### Further Reading
+- **Value**: the target actor has the problem, the outcome matters, and the change beats the current workaround.
+- **Usability**: the actor can discover, understand, and complete the changed flow in context.
+- **Viability**: the change works for the business, operations, legal, support, policy, and commercial constraints.
+- **Feasibility**: the team can deliver the behavior with acceptable reliability, performance, data, integration, and migration risk.
 
-- [Assumption Prioritization Canvas: How to Identify And Test The Right Assumptions](https://www.productcompass.pm/p/assumption-prioritization-canvas)
-- [How to Manage Risks as a Product Manager](https://www.productcompass.pm/p/how-to-manage-risks-as-a-product-manager)
-- [Continuous Product Discovery Masterclass (CPDM)](https://www.productcompass.pm/p/cpdm) (video course)
+Use stable IDs (`A-001`, `A-002`, ...). Add each assumption to the canonical ledger, then record its risk details:
+
+| Field | Required content |
+|---|---|
+| Risk area | Value / Usability / Viability / Feasibility |
+| Impact if false | Concrete user, business, or delivery consequence |
+| Linked evidence | IDs that support, contradict, or leave the claim inconclusive |
+| Uncertainty | High / Medium / Low, justified by evidence quality |
+| Fastest disconfirming signal | Behavior, artifact, data, or technical result that would refute the claim |
+
+Split compound assumptions until each row can fail independently.
+
+**Complete when:** every proposed behavior depends on at least one assumption, all four risks were examined, and every assumption has an impact, evidence state, uncertainty rationale, and disconfirming signal.
+
+### 3. Mark the testing candidates
+
+Mark an assumption `load-bearing` when its failure would invalidate the change, materially alter the solution, or make the current plan unsafe. Preserve unresolved contradictions beside the affected assumptions.
+
+Return the assumption register and route it to `prioritize-assumptions`. This step identifies risk; it does not authorize implementation.
+
+**Complete when:** each load-bearing assumption is visible, every contradiction is attached to an assumption, and no unsupported claim is presented as a product decision.
+
+## Output
+
+```md
+# Existing Product Assumption Register
+
+## Current -> Expected -> Delta
+...
+
+## Evidence Ledger
+| ID | Type | Claim | Source | Scope | Support | Strength | Implication |
+|---|---|---|---|---|---|---|---|
+
+## Assumption Risk Details
+| Assumption ID | Risk | Impact if false | Linked evidence IDs | Uncertainty | Disconfirming signal | Load-bearing? |
+|---|---|---|---|---|---|---|
+
+## Contradictions And Unknowns
+- ...
+
+## Next
+`prioritize-assumptions`
+```

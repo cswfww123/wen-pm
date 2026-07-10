@@ -1,88 +1,171 @@
 ---
 name: to-prd
-description: Turn settled discussion into a PRD and publish it to the issue tracker.
-disable-model-invocation: true
+description: Continue a pm-alignment canonical Build or complete Bet handoff by writing a traceable local PRD.
 ---
 
 # To PRD
 
-Turn settled context and codebase understanding into a PRD. Do not interview the user; synthesize what is already known.
+Turn an authorized product decision into a durable PRD. Synthesize what is known and investigate repository-owned facts instead of reopening discovery as an interview.
 
-The issue tracker and triage label vocabulary should come from `/setup-project-harness`.
+Before acting, read all of the canonical [evidence model](../pm-intake/references/evidence-model.md). Use its product-evidence gate, dispositions, and complete `Bet` contract.
 
-## Readiness Gate
+## Admission Gates
 
-Before writing or publishing the PRD, confirm the source is settled enough:
+Both gates must pass before any solution or requirement is written.
 
-- problem, outcome, and target user are clear
-- scope and out of scope are explicit
-- core behavior and main flows are specified
-- material edge cases or error paths are covered or explicitly deferred
-- dependencies, integrations, migrations, or permissions are named when relevant
-- remaining unknowns are explicitly non-blocking assumptions or follow-up questions
+### Alignment gate
 
-If any item is missing, contradictory, or blocked on a user-owned decision, stop. Report the gaps and recommend `/grill-with-docs` or targeted repo evidence gathering instead of turning guesses into PRD decisions.
+- target actor, problem, desired outcome, and current alternative are explicit
+- current and expected behavior are distinguished for an existing product
+- scope, non-scope, flows, business rules, edge cases, and constraints are settled
+- intended behavior and acceptance examples are authorized `D-*` records
+- decision owners and remaining non-blocking follow-ups are explicit
 
-## Process
+### Delivery authorization gate
 
-1. Synthesize from the current discussion, user-provided docs, existing PRDs, issues, or other durable repo artifacts.
-2. Explore the repo to understand the current state if needed. Use glossary vocabulary and respect relevant ADRs.
-3. If current-state claims depend on actual code behavior, trace the relevant entrypoint before recording modules, interfaces, interactions, permissions, migrations, or test seams.
-4. Run the readiness gate above.
-5. Sketch the test seams for the feature. Prefer existing seams, use the highest seam possible, and keep the number of seams as low as practical.
-6. Ask about test seams only when the choice is user-owned or repo evidence is insufficient. Otherwise record the chosen seams and assumptions in the PRD.
-7. Write the PRD using the template below.
-8. Publish it to the project issue tracker and apply the `ready-for-agent` triage label.
+The upstream disposition is exactly one of:
+
+- **Build**: every canonical `Build` criterion is satisfied and the Product Evidence Gate passes.
+- **Bet**: an accountable owner supplied the required `D-*`, unsupported `A-*`, investment cap, expiry date, measurement plan, rollback path, and kill threshold. Every downstream requirement will remain labeled `Bet`.
+
+If either gate fails, produce only a local blocking-gap report and route to the canonical next disposition. A blocking report contains no solution, `REQ-*`, or `AC-*` sections.
+
+## Steps
+
+### 1. Gather the source record
+
+Read the alignment brief, canonical Evidence Ledger, experiment results, Decision Log, and relevant repository artifacts. Preserve `EV-*`, `ST-*`, `D-*`, `A-*`, and `X-*` records. Assign IDs through the canonical model when a source lacks them; keep contradictions separate.
+
+When a requirement depends on current code behavior, trace the relevant entrypoint, rules, state transitions, permissions, data changes, integrations, and test seams before describing the delta.
+
+**Complete when:** every input has a durable locator, current-state technical claims have repository sources, and all contradictions and unsupported assumptions remain visible.
+
+### 2. Run the admission gates
+
+Record `PASS` or `FAIL` for every gate row with supporting IDs. On any failure, save `docs/prd/YYYY-MM-DD-<slug>-blocked.md` or the repository's equivalent, using the blocking-report template below, then stop this skill.
+
+**Complete when:** either both gates pass, or a local blocking report exists with one canonical disposition, owner, action, and observable exit condition for every gap.
+
+### 3. Draft requirements and acceptance
+
+Write user-visible behavior and business rules with stable IDs (`REQ-001`, ...). Write business-readable scenario acceptance with stable IDs (`AC-001`, ...). Preserve `Current -> Expected -> Delta` for existing-product changes.
+
+Each requirement cites:
+
+- the `D-*` that authorizes it
+- the product-evidence IDs that support it, or the unsupported `A-*` and `D-*` Bet authorization
+- the `AC-*` that verifies it
+- `Build` or `Bet` as its authorization
+
+Record implementation and testing decisions only to the level supported by repository evidence. Keep technical options separate from settled product behavior.
+
+**Complete when:** every in-scope behavior has a requirement, every requirement has acceptance, and every requirement traces to evidence or a fully bounded Bet plus a decision.
+
+### 4. Validate traceability
+
+Check forward and backward:
+
+- every source decision is represented or explicitly out of scope
+- every `REQ-*` maps to `EV-*` or `X-*` for Build, or to explicit `A-*` plus the Bet `D-*`
+- every `REQ-*` maps to `D-*` and at least one `AC-*`
+- every `AC-*` maps to at least one requirement
+- success, rollback, and kill criteria map to the outcome or bounded Bet
+- contradictions, protected behavior, deferred behavior, and non-goals remain visible
+
+**Complete when:** the traceability matrix has no orphan requirement, acceptance criterion, authorization, or source decision.
+
+### 5. Save locally, then optionally publish
+
+Follow the repository's PRD convention. If none exists, save to `docs/prd/YYYY-MM-DD-<slug>.md`. The local PRD is authoritative.
+
+Create an external tracker item only when the user explicitly asks. After successful publication, write the returned URL or identifier into the local PRD.
+
+**Complete when:** the local PRD exists with gate results, source locators, canonical records, authorization, and complete traceability; any requested external reference is recorded.
+
+## Blocking Report Template
+
+```md
+# PRD Blocked: <product / change>
+
+## Sources Inspected
+- ...
+
+## Admission Gates
+| Gate item | PASS / FAIL | Supporting IDs | Gap owner | Required action | Exit condition |
+|---|---|---|---|---|---|
+
+## Routed Disposition
+- Disposition: Kill | Pause | Discovery | Experiment | Prototype | Pivot | Align
+- Supporting IDs:
+- Next action:
+```
 
 ## PRD Template
 
 ```md
-## Problem Statement
+# <Product / Change> PRD
 
-The problem the user is facing, from the user's perspective.
+## Metadata
+- Status: Ready for delivery review
+- Owner:
+- Date / version:
+- Source artifacts:
+- Source disposition: Bet | Build
+- Product Evidence Gate: PASS | FAIL because this is an authorized Bet
+- External reference: None | <URL or ID>
 
-## Solution
+## Admission Gates
+| Gate item | PASS | Supporting IDs |
+|---|---|---|
 
-The solution to the problem, from the user's perspective.
+## Problem And Outcome
+- Target actor and situation:
+- Problem and consequence:
+- Current alternative:
+- Desired user and business outcome:
 
-## User Stories
+## Evidence Ledger
+| ID | Type | Claim | Source | Scope | Support | Strength | Implication |
+|---|---|---|---|---|---|---|---|
 
-1. As an <actor>, I want a <feature>, so that <benefit>.
+## Decision Log
+| Decision ID | Decision | Owner | Date | Scope | Evidence / assumptions | Revisit trigger |
+|---|---|---|---|---|---|---|
 
-Make this list extensive enough to cover the feature.
+## Bounded Bet Contract
+Omit for Build. For Bet: unsupported assumptions, investment cap, expiry, measurement, rollback, and kill threshold.
 
-## Implementation Decisions
+## Current -> Expected -> Delta
+Omit only for a genuinely new product.
 
-- Modules or interfaces that will be built or modified
-- Technical clarifications from the developer
-- Architectural decisions
-- Schema changes
-- API contracts
-- Specific interactions
+## Scope
+### In Scope
+### Out Of Scope
 
-Do not include specific file paths or code snippets because they go stale quickly.
+## Flows And Business Rules
+- actors and triggers
+- main, alternate, and error flows
+- permissions, boundaries, and constraints
 
-Exception: if a prototype produced a concise snippet that encodes a decision more precisely than prose can, inline only the decision-rich part and label it as prototype-derived.
+## Requirements
+| ID | Required behavior / rule | Evidence or Bet IDs | Decision IDs | Acceptance IDs | Authorization |
+|---|---|---|---|---|---|
 
-## Testing Decisions
+## Acceptance Criteria
+- [ ] AC-001 — Given ... when ... then ...
 
-- What makes a good test for this feature
-- Which modules or seams will be tested
-- Prior art for similar tests in the codebase
+## Success, Rollback, And Kill Criteria
+- ...
 
-## Out Of Scope
+## Implementation And Testing Decisions
+- repository-grounded modules, interfaces, migrations, contracts, and test seams
 
-What is explicitly outside this PRD.
+## Non-Blocking Follow-ups
+- owner, action, and review trigger
 
-## Further Notes
-
-Any further notes about the feature.
+## Traceability Matrix
+| Requirement | Evidence / assumption / result | Decision | Acceptance | Authorization | Issue |
+|---|---|---|---|---|---|
 ```
 
-## Related Skills
-
-- `/alignment-review` — check the PRD preserves user intent and fits the codebase
-- `/to-issues` — break the PRD into vertical-slice issues
-- `/to-test-plan` — derive traceable test cases from the PRD
-
-Use any, in any order; this skill prescribes no sequence.
+After the PRD exists, `to-issues` can create local vertical-slice issue files while preserving every ID.

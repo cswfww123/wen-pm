@@ -1,49 +1,64 @@
 ---
 name: analyze-feature-requests
-description: "Analyze and prioritize a list of feature requests by theme, strategic alignment, impact, effort, and risk. Use when reviewing customer feature requests, triaging a backlog, or making prioritization decisions."
+description: Continue a pm-intake batch-request route by converting requests into evidence-backed opportunity themes and one next discovery action.
 ---
 
-## Analyze Feature Requests
+# Analyze Feature Requests
 
-Categorize, evaluate, and prioritize customer feature requests against product goals.
+Treat requests as solution statements. Find the repeated problem and evidence underneath them before ranking work.
 
-### Context
+## Steps
 
-You are analyzing feature requests for **$ARGUMENTS**.
+1. **Load the evidence model**
+   - Read `../pm-intake/references/evidence-model.md`.
+   - Record the product outcome that prioritization is meant to improve.
+   - Completion criterion: the outcome is measurable, or the only next action is to clarify it.
 
-If the user provides files (spreadsheets, CSVs, or documents with feature requests), read and analyze them directly. If data is in a structured format, consider creating a summary table.
+2. **Normalize every request**
+   - Record source, affected role or segment, requested solution, stated reason, current alternative, observed past behavior, frequency or reach, and outcome.
+   - Classify the request itself as a Stakeholder Statement. Create separate Observed Fact or Experiment Result items only when the source supports them.
+   - Completion criterion: every input request has one source ID and no requested feature is mislabeled as user-value evidence.
 
-### Domain Context
+3. **Cluster opportunities, not features**
+   - Group requests by the underlying user problem or desired outcome.
+   - Preserve contradictory requests and segment differences instead of averaging them away.
+   - Completion criterion: every request maps to one opportunity or an explicit `unclassified` bucket.
 
-Never allow customers to design solutions. Prioritize **opportunities (problems)**, not features. Use **Opportunity Score** (Dan Olsen) to evaluate customer-reported problems: Opportunity Score = Importance × (1 − Satisfaction), normalized to 0–1. See the `prioritization-frameworks` skill for full details and templates.
+4. **Assess evidence and risk**
+   - For each opportunity, show reach, evidence strength and scope, current alternative, value signal, strategic fit, four-risk unknowns, and estimated delivery cost.
+   - Rank evidence-backed opportunities. Rank weakly evidenced themes as research priorities, not build priorities.
+   - Completion criterion: every ranked opportunity cites evidence IDs and names its most load-bearing unknown.
 
-### Instructions
+5. **Choose one next action**
+   - Use `opportunity-solution-tree` for a broad, evidenced opportunity space.
+   - Use `identify-assumptions-existing` or `identify-assumptions-new` for a proposed solution.
+   - Apply the canonical disposition gates verbatim: missing product evidence normally means `Discovery`; use `Experiment` only with a cited `A-*` and complete protocol, `Pause` only with a named blocker, and `Kill` or `Pivot` only with their qualifying evidence.
+   - Completion criterion: the output names exactly one canonical disposition and next action with supporting IDs, and never routes directly to implementation.
 
-The user will describe their product goal and provide feature requests. Work through these steps:
+## Output
 
-1. **Understand the goal**: Confirm the product objective and desired outcomes that will guide prioritization.
+```md
+## Outcome
+...
 
-2. **Categorize requests into themes**: Group related requests together and name each theme.
+## Evidence Ledger
+| ID | Type | Claim | Source | Scope | Support | Strength | Implication |
+| --- | --- | --- | --- | --- | --- | --- | --- |
 
-3. **Assess strategic alignment**: For each theme, evaluate how well it aligns with the stated goals.
+## Normalized Requests
+| ST ID | Source locator | Segment / role | Requested solution | Stated reason | Current alternative | Reported past behavior ST IDs | Frequency / reach | Desired outcome |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
 
-4. **Prioritize the top 3 features** based on:
-   - **Impact**: Customer value and number of users affected
-   - **Effort**: Development and design resources required
-   - **Risk**: Technical and market uncertainty
-   - **Strategic alignment**: Fit with product vision and goals
+## Opportunity Themes
+| Opportunity | ST IDs | Segment | Qualifying evidence IDs | Evidence Strength | Current Alternative | Risk | Priority |
+| --- | --- | --- | --- | --- | --- | --- | --- |
 
-5. **For each top feature**, provide:
-   - Rationale (customer needs, strategic alignment)
-   - Alternative solutions worth considering
-   - High-risk assumptions
-   - How to test those assumptions with minimal effort
+## Contradictions And Gaps
+...
 
-Think step by step. Save as markdown or create a structured output document.
+## Disposition
+Kill | Pause | Discovery | Experiment | Prototype | Pivot | Align
 
----
-
-### Further Reading
-
-- [Kano Model: How to Delight Your Customers Without Becoming a Feature Factory](https://www.productcompass.pm/p/kano-model-how-to-delight-your-customers)
-- [Continuous Product Discovery Masterclass (CPDM)](https://www.productcompass.pm/p/cpdm) (video course)
+## Next Action
+...
+```

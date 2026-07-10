@@ -1,45 +1,114 @@
 ---
 name: brainstorm-experiments-new
-description: "Design lean startup experiments (pretotypes) for a new product. Creates XYZ hypotheses and suggests low-effort validation methods like landing pages, explainer videos, and pre-orders. Use when validating a new product idea, creating pretotypes, or testing market demand."
+description: Continue a new-idea Experiment disposition by pre-registering behavioral or commitment evidence for one A-* assumption.
 ---
 
-## Design Lean Startup Experiments (New Product)
+# Design Experiments: New Product
 
-Create XYZ hypotheses and design pretotype experiments to validate a new product concept with minimal effort.
+Collect your own behavioral data before expanding the idea. Interest is a weak signal; time, money, reputation, switching, and repeated use are stronger commitments.
 
-### Context
+Before acting, read all of the canonical [evidence model](../pm-intake/references/evidence-model.md). Apply its `Experiment` contract and result-record schema.
 
-You are helping validate a new product concept: **$ARGUMENTS** using lean startup methodology.
+## Steps
 
-If the user provides files (market research, landing page mockups), read them first.
+### 1. Select one load-bearing assumption
 
-### Instructions
+Read the prioritized assumption register and preserve its IDs, evidence, and contradictions. Choose the highest-priority assumption that can be tested safely. State what decision becomes possible if uncertainty changes.
 
-1. **Create an XYZ Hypothesis** in the form: "At least X% of Y will do Z"
-   - **X%**: The percentage of the target market expected to engage
-   - **Y**: The specific target market (e.g., "mid-size luxury sedan buyers")
-   - **Z**: How they will engage with the product
+Use an XYZ hypothesis when it fits:
 
-2. **Suggest 2-3 pretotype experiments** to test the hypothesis with minimal effort. Consider:
-   - **Landing Page**: Test interest by measuring sign-ups or clicks
-   - **Explainer Video**: Test understanding and appeal through engagement metrics
-   - **Email Campaign**: Test demand through response and click-through rates
-   - **Pre-Order / Waitlist**: Test willingness to pay through skin-in-the-game commitment
-   - **Concierge / Manual MVP**: Deliver the service manually to test value
+```text
+At least X% of a specific Y segment will do observable Z under stated conditions by a stated date.
+```
 
-3. **Key principles** (Alberto Savoia, *The Right It*):
-   - **Skin-in-the-Game**: Test willingness to pay — not just interest. Real commitment (time, money, reputation) is the only reliable signal.
-   - **Your Own Data (YODA)**: Collect your own data through experiments rather than relying on Others' Data (ODP) like market reports or analogies. "The market for your idea does not care about the market for someone else's idea."
-   - Measure actual behavior, not users' opinions
+For feasibility, ethics, or viability assumptions, use a falsifiable technical, harm, cost, policy, or operational claim instead of forcing a conversion hypothesis.
 
-4. **For each experiment**, specify the hypothesis being tested, the method, the metric, and the success threshold.
+**Complete when:** the test targets one assumption, names a specific segment and behavior or result, and cannot pass through an opinion-only response.
 
-Think step by step. Save as markdown if substantial.
+### 2. Choose the cheapest credible commitment
 
----
+Select a method that produces evidence proportional to the risk:
 
-### Further Reading
+- fake door or landing page with a consequential follow-through action
+- targeted outreach with a real booking, deposit, data import, or workflow commitment
+- pre-order, paid pilot, letter of intent with concrete obligations, or cancellation test
+- concierge or Wizard-of-Oz delivery that observes repeated use and outcome
+- prototype task test for comprehension and usability
+- technical spike, cost simulation, policy review, or misuse test
 
-- [How to Build the Right Product with Alberto Savoia (ex-Innovator at Google)](https://www.productcompass.pm/p/how-to-build-the-right-product-with)
-- [Testing Product Ideas: The Ultimate Validation Experiments Library](https://www.productcompass.pm/p/the-ultimate-experiments-library)
-- [Continuous Product Discovery Masterclass (CPDM)](https://www.productcompass.pm/p/cpdm) (video course)
+Prefer your own data from the intended segment. Market reports and analogies can shape the hypothesis; they cannot pass the experiment.
+
+**Complete when:** the method can refute the assumption before full product construction and the measured action has a real cost or consequence for the participant when value risk is being tested.
+
+### 3. Pre-register all outcomes
+
+Create a stable protocol ID (`EXP-001`, `EXP-002`, ...). Reserve `X-*` for the observed Experiment Result after the protocol runs. Specify:
+
+| Field | Required content |
+|---|---|
+| Assumption | ID and exact claim |
+| Segment and recruitment | Who qualifies and how they are reached |
+| Procedure | Exact promise, exposure, task, or delivery |
+| Metric and instrumentation | Observable behavior and capture method |
+| Sample and timebox | Minimum interpretable sample and stop date |
+| Success threshold | Result that materially reduces uncertainty |
+| Failure / kill threshold | Result that refutes the assumption or stops the bet |
+| Inconclusive threshold | Numeric band or validity condition requiring more evidence |
+| Guardrails | Consent, truthfulness, privacy, refund, brand, harm, and cost limits |
+| Owner | Person accountable for running and reading the result |
+
+Make success, failure, and inconclusive conditions mutually exclusive and collectively exhaustive. Define the next decision for each:
+
+- **Success** -> record an `X-* Experiment Result`, lower uncertainty only within its Scope, then choose the next canonical disposition from the remaining risks.
+- **Failure** -> apply `Kill` only when the predeclared kill threshold and canonical criteria are met; use `Pivot` only when product evidence still supports an adjacent opportunity; otherwise return to `Discovery`.
+- **Inconclusive** -> use `Discovery` to repair sample, recruitment, instrumentation, or hypothesis quality; use `Pause` only for a named external blocker.
+
+**Complete when:** every experiment has all three thresholds, all three next decisions, a safe stopping rule, and no outcome defaults directly to Build.
+
+### 4. Return the learning sequence
+
+Recommend the first experiment and show which later experiments are conditional on its result. Avoid a generic menu of landing pages, surveys, and videos that do not attack the selected risk.
+
+**Complete when:** every load-bearing assumption is covered by a conditional experiment or explicit blocker, and the first experiment can run without inventing metrics, thresholds, participants, safeguards, or ownership.
+
+## Output
+
+```md
+# New Product Experiment Plan
+
+## First Experiment
+- Disposition: Experiment | Prototype | Discovery | Pause
+- Protocol ID:
+- Assumption ID:
+- Hypothesis:
+- Decision unlocked:
+
+## EXP-001 — <name>
+- Assumption ID:
+- Hypothesis:
+- Segment / recruitment:
+- Procedure:
+- Metric / instrumentation:
+- Sample / timebox:
+- Success threshold:
+- Success disposition:
+- Failure / kill threshold:
+- Failure disposition:
+- Inconclusive rule:
+- Inconclusive disposition:
+- Guardrails:
+- Owner:
+
+## Result Record After Execution
+- Protocol ID: EXP-...
+- Assumption ID: A-...
+
+| ID | Type | Claim | Source | Scope | Support | Strength | Implication |
+|---|---|---|---|---|---|---|---|
+
+## Conditional Learning Sequence
+- If ... then EXP-002 ...
+
+## Blocked Assumptions
+- ...
+```

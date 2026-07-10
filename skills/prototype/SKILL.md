@@ -1,7 +1,6 @@
 ---
 name: prototype
-description: Build a throwaway prototype to answer a product, logic, state, or UI design question.
-disable-model-invocation: true
+description: Continue a canonical Prototype disposition by building one disposable artifact for one product, logic, state, or UI learning question.
 ---
 
 # Prototype

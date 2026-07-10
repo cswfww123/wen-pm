@@ -1,11 +1,15 @@
 ---
 name: interview-script
-description: "Create a structured customer interview script with JTBD probing questions, warm-up, core exploration, and wrap-up sections. Follows The Mom Test principles — no leading questions, no pitching, focus on past behavior. Use when preparing for user interviews, creating interview guides, or planning discovery research."
+description: Continue a pm-intake customer-discovery route by creating a neutral interview about specific past behavior.
 ---
 
 ## Customer Interview Script
 
 Create a structured interview script that surfaces real insights, not just opinions. Follows "The Mom Test" principles — ask about their life, not your idea.
+
+This skill is for `Interview Mode: customer-discovery`. When the meeting exists to approve intent, scope, trade-offs, or a recommendation, use `pm-grilling` in `decision-alignment` mode instead. If the same person fills both roles, finish neutral discovery before showing interpretations or recommendations.
+
+Before acting, read the canonical [evidence model](../pm-intake/references/evidence-model.md). The guide captures source-located raw notes; after the session, `summarize-interview` converts them into complete canonical records. Do not assign `EV-*` or `ST-*` IDs inside the shorthand note template.
 
 ### Domain Context
 
@@ -23,6 +27,8 @@ If the user provides files (personas, hypothesis lists, product briefs, or previ
    - What specific questions does the team need answered?
    - What decisions will this research inform?
    - What assumptions need validation?
+
+   Completion criterion: the script names the decision it informs and the behavior evidence it seeks without revealing the preferred answer to the participant.
 
 2. **Create the interview script** with these sections:
 
@@ -46,7 +52,7 @@ If the user provides files (personas, hypothesis lists, product briefs, or previ
 
    **Pain points and frustrations** (observe, don't lead):
    - "What was the hardest part about that?"
-   - "If you could wave a magic wand, what would change?"
+   - "What did you wish had happened differently the last time?"
    - "What have you tried to solve this? What happened?"
 
    **Desired outcomes** (their words, not yours):
@@ -56,7 +62,7 @@ If the user provides files (personas, hypothesis lists, product briefs, or previ
    **Willingness to pay / priority** (skin in the game):
    - "How much time/money do you currently spend on this?"
    - "Have you looked for a better solution? What did you find?"
-   - "What would you give up to have this solved?"
+   - "What have you already given up, changed, or committed to deal with this?"
 
    ### Probing Techniques
    Use these when you hit an interesting thread:
@@ -80,22 +86,40 @@ If the user provides files (personas, hypothesis lists, product briefs, or previ
    - Thank them for their time
    - Share next steps (if any)
 
+   Completion criterion: the participant-facing script covers context, a specific past event, current alternatives, consequences, actual prior commitments, and wrap-up without exposing a hypothesis or recommendation.
+
 3. **Customize the script**: Adapt questions to the specific product area, persona, and research objectives. Add or remove sections based on the interview length available.
+
+   Completion criterion: every retained question serves a named research objective and fits the participant, domain, and available time.
 
 4. **Include a note-taking template**:
    ```
    Participant: [Name / ID]
    Date: [Date]
-   Key Jobs: [What they're trying to accomplish]
-   Current Solution: [What they use today]
-   Biggest Pain: [Their #1 frustration]
-   Desired Outcome: [What success looks like]
-   Willingness to Pay: [How much they invest / would invest]
-   Surprise Finding: [Something unexpected]
-   Follow-up: [Next steps]
+   Source: [Recording, transcript, notes, and timestamp convention]
+   Research Objective: [Decision and assumption IDs informed]
+
+   Direct Observations (raw notes):
+   - [Observed action or artifact — timestamp/source]
+
+   Reported Past Behavior (raw notes):
+   - [Specific event, context, action, consequence — timestamp/source]
+
+   Opinions Or Requests (raw notes):
+   - [Preference, prediction, or proposed solution — timestamp/source]
+
+   Current Alternative: [What they actually used]
+   Actual Commitment: [Time, money, data, approval, reputation, or switching already committed]
+   Unknowns And Contradictions: [...]
+   Follow-up: [Owner, next evidence action, trigger/date]
    ```
 
-Save as markdown. Include both the script and the note-taking template.
+   Completion criterion: the raw-note template captures source locators and keeps direct observation, reported behavior, and opinion separate for later canonical classification; it contains no hypothetical willingness field.
+
+5. **Save the guide locally**
+   Save as Markdown using the repository's research convention, or `docs/research/interviews/<topic>-guide.md` when none exists.
+
+   Completion criterion: the local file exists, includes the customized script and note template, every research objective has a neutral past-behavior question, and no participant-facing question contains the proposed answer or hypothetical adoption prompt.
 
 ---
 
