@@ -17,9 +17,13 @@ Require:
 - canonical disposition `Build` with every Build condition satisfied, or `Bet` with the complete canonical Bet contract;
 - stable `D-*`, `REQ-*`, and `AC-*` IDs;
 - for Build, qualifying `EV-*` / `X-*`; for Bet, unsupported `A-*` plus the authorizing Bet `D-*`;
-- stable protected-behavior and regression locators—such as `REQ-*`, `AC-*`, or source-artifact section anchors—when the track is `existing-change`.
+- stable protected-behavior and regression locators—such as `REQ-*`, `AC-*`, or source-artifact section anchors—when the track is `existing-change`;
+- when the PRD declares a UI contract: `SCR-*` / `FLD-*` / `RULE-*` (or fail readiness and route to `to-prd` to complete the UI contract before scenarios).
 
-If readiness fails, route to `pm-alignment-to-prd` and create no scenarios.
+If readiness fails, route to `pm-alignment-to-prd` or `to-prd` and create no scenarios.
+
+This skill is the **default next step after `to-prd`** before companion
+engineering handoff.
 
 ## Steps
 
@@ -32,7 +36,12 @@ If readiness fails, route to `pm-alignment-to-prd` and create no scenarios.
    - Assign stable IDs (`SCN-001`, ...).
    - For each acceptance criterion, specify objective, actor, starting state, trigger, actions, and observable outcomes.
    - Cover main, exception, error, permission, boundary, empty, and recovery states when relevant.
-   - Completion criterion: every `AC-*` is exercised by at least one `SCN-*`, and every scenario cites its source artifact/version and authorization.
+   - When a UI contract exists: add scenarios that fire every material `RULE-*`
+     (show/hide/require paths), multi-entity/section cases, and listed UI states;
+     cite `SCR-*` / `FLD-*` / `RULE-*` on those scenarios.
+   - Completion criterion: every `AC-*` is exercised by at least one `SCN-*`;
+     every material `RULE-*` has a scenario when UI contract present; every
+     scenario cites source artifact/version and authorization.
 
 3. **Protect existing behavior**
    - For `existing-change`, add regression scenarios for every Keep item and affected integration, migration, or compatibility boundary.

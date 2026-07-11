@@ -1,13 +1,19 @@
 ---
 name: to-prd
-description: Continue a pm-alignment canonical Build or complete Bet handoff by writing a traceable local PRD.
+description: Write a Build/Bet Product Delivery Contract with REQ/AC and UI contract when needed.
 ---
 
 # To PRD
 
-Turn an authorized product decision into a durable PRD. Synthesize what is known and investigate repository-owned facts instead of reopening discovery as an interview.
+Turn an authorized product decision into a **Product Delivery Contract** — a
+durable, ID-stable package engineering can admit without re-discovering intent.
+Synthesize what is known and investigate repository-owned facts; do not reopen
+discovery as an interview.
 
-Before acting, read all of the canonical [evidence model](../pm-intake/references/evidence-model.md). Use its product-evidence gate, dispositions, and complete `Bet` contract.
+Before acting, read all of the canonical
+[evidence model](../pm-intake/references/evidence-model.md). Use its product-evidence
+gate, dispositions, and complete `Bet` contract. See
+[docs/boundaries.md](../../docs/boundaries.md) for the engineering handoff spine.
 
 ## Admission Gates
 
@@ -65,7 +71,22 @@ Record implementation and testing decisions only to the level supported by repos
 
 **Complete when:** every in-scope behavior has a requirement, every requirement has acceptance, and every requirement traces to evidence or a fully bounded Bet plus a decision.
 
-### 4. Validate traceability
+### 4. Draft the UI contract when the surface is visual
+
+If the change has a user-visible surface, load [UI-CONTRACT.md](UI-CONTRACT.md)
+and write screens `SCR-*`, fields `FLD-*`, linkage `RULE-*`, UI states, and a
+**pinned delivery prototype** (versioned path/URL). Learning-only prototypes are
+not delivery truth.
+
+If the surface is visual and the UI contract is incomplete (missing field rows,
+conditional rules, or prototype pin), fail this step: save a blocking gap or
+keep the PRD out of `Ready for delivery review` until fixed. Do not hand off
+prose-only UI to engineering.
+
+**Complete when:** either `UI Contract: none — no user-visible surface`, or the
+UI completeness gate in `UI-CONTRACT.md` passes.
+
+### 5. Validate traceability
 
 Check forward and backward:
 
@@ -73,18 +94,19 @@ Check forward and backward:
 - every `REQ-*` maps to `EV-*` or `X-*` for Build, or to explicit `A-*` plus the Bet `D-*`
 - every `REQ-*` maps to `D-*` and at least one `AC-*`
 - every `AC-*` maps to at least one requirement
+- every UI `FLD-*` / `RULE-*` maps to at least one `AC-*` when a UI contract exists
 - success, rollback, and kill criteria map to the outcome or bounded Bet
 - contradictions, protected behavior, deferred behavior, and non-goals remain visible
 
-**Complete when:** the traceability matrix has no orphan requirement, acceptance criterion, authorization, or source decision.
+**Complete when:** the traceability matrix has no orphan requirement, acceptance criterion, authorization, UI rule, or source decision.
 
-### 5. Save locally, then optionally publish
+### 6. Save locally, then recommend the handoff spine
 
 Follow the repository's PRD convention. If none exists, save to `docs/prd/YYYY-MM-DD-<slug>.md`. The local PRD is authoritative.
 
 Create an external tracker item only when the user explicitly asks. After successful publication, write the returned URL or identifier into the local PRD.
 
-**Complete when:** the local PRD exists with gate results, source locators, canonical records, authorization, and complete traceability; any requested external reference is recorded.
+**Complete when:** the local PRD exists with gate results, source locators, canonical records, authorization, UI disposition, and complete traceability; any requested external reference is recorded.
 
 ## Blocking Report Template
 
@@ -110,12 +132,13 @@ Create an external tracker item only when the user explicitly asks. After succes
 # <Product / Change> PRD
 
 ## Metadata
-- Status: Ready for delivery review
+- Status: Ready for delivery review | Blocked — UI contract incomplete
 - Owner:
 - Date / version:
 - Source artifacts:
 - Source disposition: Bet | Build
 - Product Evidence Gate: PASS | FAIL because this is an authorized Bet
+- UI Contract: none — no user-visible surface | present — see section
 - External reference: None | <URL or ID>
 
 ## Admission Gates
@@ -158,26 +181,36 @@ Omit only for a genuinely new product.
 ## Acceptance Criteria
 - [ ] AC-001 — Given ... when ... then ...
 
+## UI Contract
+Omit only when Metadata says none. Otherwise include Delivery Prototype pin,
+Screens, Fields, Linkage Rules, and UI States per [UI-CONTRACT.md](UI-CONTRACT.md).
+
 ## Success, Rollback, And Kill Criteria
 - ...
 
 ## Implementation And Testing Decisions
 - repository-grounded modules, interfaces, migrations, contracts, and test seams
+- do not invent UI beyond the UI Contract
 
 ## Non-Blocking Follow-ups
 - owner, action, and review trigger
 
 ## Traceability Matrix
-| Requirement | Evidence / assumption / result | Decision | Acceptance | Authorization | Issue |
+| Requirement | Evidence / assumption / result | Decision | Acceptance | UI (SCR/FLD/RULE) | Authorization |
 |---|---|---|---|---|---|
 ```
 
-After the PRD exists:
+## After The PRD Exists
 
-- `to-issues` can create local vertical-slice issue files while preserving every ID (PM planning boards).
-- For real production coding agents, recommend companion **`wen-engineering`**:
-  `/to-spec` → `/to-tickets` → `/implement` using this PRD as settled product
-  input. Do not reopen product discovery inside engineering unless gates fail.
-- Technical multi-session fog after product settlement is engineering's slim
-  `/wayfinder`, not a second PM front door. See
-  [docs/boundaries.md](../../docs/boundaries.md).
+Default agent handoff spine (in order):
+
+1. **`test-scenarios`** — produce `SCN-*` that exercise every material `AC-*`
+   and every `RULE-*` / UI state when a UI contract exists.
+2. **Companion `wen-engineering`**: `/to-spec` → `/to-tickets` → `/implement`
+   using this PRD (+ scenarios + UI contract) as settled product input.
+3. **`to-issues`** — **optional**, only for human planning boards; never the
+   agent execution source of truth.
+
+Do not reopen product discovery inside engineering unless gates fail.
+Technical multi-session fog after settlement is engineering's slim `/wayfinder`.
+See [docs/boundaries.md](../../docs/boundaries.md).

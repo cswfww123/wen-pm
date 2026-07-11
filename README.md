@@ -91,8 +91,9 @@ flowchart TD
   G --> E
   G --> H["Bet: bounded and explicitly unvalidated"]
   G --> I["Build: both gates and every canonical Build condition pass"]
-  H --> J["to-prd / pm-prototype / to-issues / test-scenarios"]
+  H --> J["to-prd → test-scenarios → eng handoff"]
   I --> J
+  J --> K["optional: to-issues board only"]
   E0 --> R["pm-process-retro: combat gap → PL-* → ACTIVE / skill patch"]
   F --> R
   J --> R
@@ -234,12 +235,12 @@ Marty Cagan 式锋利判断在访谈者后台运行；面对目标用户时保�
 
 ### Engineering Handoff
 
-- [`to-prd`](skills/to-prd/SKILL.md): 从通过门禁的证据和决定生成本地可追踪 PRD。
-- [`pm-prototype`](skills/pm-prototype/SKILL.md): 用一次性原型回答一个明确学习问题。
-- [`to-issues`](skills/to-issues/SKILL.md): 把 PRD 拆成保留证据与验收 ID 的 vertical slices。
-- [`test-scenarios`](skills/test-scenarios/SKILL.md): 把验收标准和受保护行为变成可追踪场景。
+- [`to-prd`](skills/to-prd/SKILL.md): Product Delivery Contract（`REQ`/`AC`；有 UI 时强制 [UI-CONTRACT](skills/to-prd/UI-CONTRACT.md)）。
+- [`test-scenarios`](skills/test-scenarios/SKILL.md): 默认在 `to-prd` 之后生成 `SCN-*`（含联动路径）。
+- [`pm-prototype`](skills/pm-prototype/SKILL.md): 学习型一次性原型；不是交付钉死源。
+- [`to-issues`](skills/to-issues/SKILL.md): **可选**人看板切片；不是 agent 执行真相。
 
-`to-prd` 和 `to-issues` 默认只写本地持久文件。只有用户明确要求时才发布到外部 issue tracker。
+`to-prd` / `test-scenarios` / `to-issues` 默认只写本地持久文件。只有用户明确要求时才发布到外部 issue tracker。
 
 ## Process Evolution Loop
 
@@ -322,16 +323,19 @@ skills/
 | Build / Bet 授权与 PRD 级产品决策 | 迁移方案、契约、双写等多会话 **技术** 雾（交给 engineering） |
 | 实现被否后的需求再发现（`existing-change`） | 在证据不足时强行 “Build 解锁开发” |
 
-授权后的推荐交接：
+授权后的推荐交接（agent 默认脊柱）：
 
 ```text
 Build | complete Bet
-  -> to-prd（可选，落本地 PRD）
+  -> to-prd              # Product Delivery Contract；有 UI 则含 FLD/RULE + 钉死原型
+  -> test-scenarios      # SCN-*（默认；覆盖联动规则）
   -> wen-engineering: /to-spec -> /to-tickets -> /implement
+  -> eng /qa-run         # 行为门 + UI 保真门
 ```
 
-若产品已 settled，但实现路径仍有多会话技术雾，由 **engineering 的瘦版
-`/wayfinder`** 处理；不要在本仓库再装一个与 `pm-intake` 竞争的通用 map skill。
+- `to-issues` **仅可选**（给人看板），不是 agent 执行真相。
+- 学习型 `pm-prototype` ≠ 交付原型钉死版本。
+- 若产品已 settled 但实现路径仍有多会话技术雾，由 engineering 瘦版 `/wayfinder` 处理。
 
 纯编码任务（缺陷修复、明确切片、behavior-preserving 重构）应直接进入
 engineering，而不是重新走完整 PM discovery——除非产品意图本身再次打开。

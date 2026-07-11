@@ -7,11 +7,14 @@ description: Continue an authorized traceable PRD by writing local vertical-slic
 
 Turn a ready PRD into independently verifiable tracer-bullet issues. Preserve product evidence and decisions through delivery; slicing does not rewrite the requirement.
 
-This skill produces a **PM-local** issue package for planning boards and
-traceability. It is not a substitute for companion engineering
-`/to-spec` → `/to-tickets` → `/implement` in a production coding agent workflow.
-When the user wants real code delivery, prefer engineering handoff after the
-PRD is ready. See [docs/boundaries.md](../../docs/boundaries.md).
+This skill produces an **optional PM-local** issue package for **human**
+planning boards and traceability. It is **not** the agent execution source of
+truth and must not replace companion engineering
+`/to-spec` → `/to-tickets` → `/implement`.
+
+Default delivery spine after a ready PRD: `test-scenarios` → engineering.
+Use this skill only when the user explicitly wants a board-oriented slice pack.
+See [docs/boundaries.md](../../docs/boundaries.md).
 
 Before acting, read all of the canonical [evidence model](../pm-intake/references/evidence-model.md). Preserve its records and the source disposition; a `Bet` remains labeled and bounded in every downstream issue.
 
