@@ -1,6 +1,6 @@
 # Active Process Force List
 
-Agents running `pm-intake`, `pm-grilling`, `pm-alignment-to-prd`, `prototype`, or `to-prd` **must** read this file and apply every matching scenario line before claiming Align / Build readiness.
+Agents running `pm-intake`, `pm-grilling`, `pm-alignment-to-prd`, `pm-prototype`, or `to-prd` **must** read this file and apply every matching scenario line before claiming Align / Build readiness.
 
 Lines are process force, not product requirements. They expire only via `pm-process-retro` (`supersede` / `ineffective` / prune).
 

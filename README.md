@@ -91,7 +91,7 @@ flowchart TD
   G --> E
   G --> H["Bet: bounded and explicitly unvalidated"]
   G --> I["Build: both gates and every canonical Build condition pass"]
-  H --> J["to-prd / prototype / to-issues / test-scenarios"]
+  H --> J["to-prd / pm-prototype / to-issues / test-scenarios"]
   I --> J
   E0 --> R["pm-process-retro: combat gap → PL-* → ACTIVE / skill patch"]
   F --> R
@@ -235,7 +235,7 @@ Marty Cagan 式锋利判断在访谈者后台运行；面对目标用户时保�
 ### Engineering Handoff
 
 - [`to-prd`](skills/to-prd/SKILL.md): 从通过门禁的证据和决定生成本地可追踪 PRD。
-- [`prototype`](skills/prototype/SKILL.md): 用一次性原型回答一个明确学习问题。
+- [`pm-prototype`](skills/pm-prototype/SKILL.md): 用一次性原型回答一个明确学习问题。
 - [`to-issues`](skills/to-issues/SKILL.md): 把 PRD 拆成保留证据与验收 ID 的 vertical slices。
 - [`test-scenarios`](skills/test-scenarios/SKILL.md): 把验收标准和受保护行为变成可追踪场景。
 
@@ -246,7 +246,7 @@ Marty Cagan 式锋利判断在访谈者后台运行；面对目标用户时保�
 产品 discovery 学用户；**流程也要学自己的失败**。纸上谈兵不升级 skill——只有实战里的缺口才能进账本。
 
 ```text
-combat (intake / grill / prototype / PRD / rework)
+combat (intake / grill / pm-prototype / PRD / rework)
   → pm-process-retro: one PL-* lesson
   → record-only | activate-checklist | patch-skill
   → learnings/ACTIVE.md (and sometimes skill text)
@@ -258,7 +258,7 @@ combat (intake / grill / prototype / PRD / rework)
 - Live force list: [`skills/pm-process-retro/learnings/ACTIVE.md`](skills/pm-process-retro/learnings/ACTIVE.md)
 - Ledger: [`skills/pm-process-retro/learnings/ledger.md`](skills/pm-process-retro/learnings/ledger.md)
 
-`pm-intake` / `pm-grilling` / `pm-alignment-to-prd` / `prototype` / `to-prd` 在开始时读取 ACTIVE。匹配到的场景行会强制多问规则/AC 或压向 Prototype；它们**不是**产品证据，也不能改写证据模型。
+`pm-intake` / `pm-grilling` / `pm-alignment-to-prd` / `pm-prototype` / `to-prd` 在开始时读取 ACTIVE。匹配到的场景行会强制多问规则/AC 或压向 Prototype；它们**不是**产品证据，也不能改写证据模型。
 
 触发示例：相关方返工发现「条件字段/多实体从没被烤」；流程停在标题级 Expected；把线稿全员签字当成 Build 许可。此时先记一条 `PL-*`，再继续产品工作。
 

@@ -47,7 +47,7 @@ From the conversation, docket, rejection, or diff, write one `PL-*` record (see 
 | `Source case` | Concrete case (product/path/date). No anonymous “we feel”. |
 | `Missed altitude` | Which layer was skipped: value / rules / flow / form-IA / visual / delivery. |
 | `Should have forced` | The question, checklist item, disposition, or gate that was missing. |
-| `Skill surface` | Which skill(s) should change: `pm-intake`, `pm-grilling`, `prototype`, … |
+| `Skill surface` | Which skill(s) should change: `pm-intake`, `pm-grilling`, `pm-prototype`, … |
 | `Proposed patch` | Smallest durable fix: ACTIVE checklist line, branch item, or SKILL.md edit. |
 | `Promotion bar` | What would justify editing a core skill vs staying on ACTIVE only. |
 
@@ -88,7 +88,7 @@ Never auto-patch core skills on first sight of a taste issue (colors, pure layou
 
 End with exactly one product-flow next action (not a menu):
 
-- Resume the interrupted skill (`pm-grilling`, `prototype`, `pm-alignment-to-prd`, …) **with** the new ACTIVE item applied; or
+- Resume the interrupted skill (`pm-grilling`, `pm-prototype`, `pm-alignment-to-prd`, …) **with** the new ACTIVE item applied; or
 - Open a new intake if the process gap invalidates the previous disposition.
 
 **Completion criterion:** process memory updated **and** product work has one owner + completion signal.

@@ -60,7 +60,7 @@ Turn a discovery docket into an explicit product decision. Agreement proves what
      - `to-prd` — durable local product PRD still needed
      - `test-scenarios` — scenario quality check before delivery
      - `to-issues` — optional PM-local vertical-slice package (planning boards)
-     - `prototype` — only when the disposition still needs a learning prototype, not as a substitute for Build
+     - `pm-prototype` — only when the disposition still needs a learning prototype, not as a substitute for Build
      - **engineering handoff** — when the product package is enough: companion `wen-engineering` `/to-spec` (or `/implement` if one-context), then `/to-tickets` as needed. Technical multi-session fog after this handoff is engineering's slim `/wayfinder`, not a new PM map.
    - For `Bet`, preserve the complete canonical Bet contract and link every downstream `REQ-*` and `AC-*` to its Bet `D-*` and unsupported `A-*` IDs.
    - For `Kill`, `Pause`, `Discovery`, `Experiment`, `Prototype`, `Pivot`, or `Align`, produce the named next learning or decision action and no implementation handoff.
@@ -121,7 +121,7 @@ Present only for Build or Bet.
 | --- | --- | --- | --- | --- | --- |
 
 ### Next Skill
-to-prd | test-scenarios | to-issues | prototype | engineering-handoff (`wen-engineering` /to-spec|/implement)
+to-prd | test-scenarios | to-issues | pm-prototype | engineering-handoff (`wen-engineering` /to-spec|/implement)
 ```
 
 Include the [handoff package checklist](../../docs/boundaries.md#handoff-to-engineering-when-authorized) when next skill is engineering-handoff.

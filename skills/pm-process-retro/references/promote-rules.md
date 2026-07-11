@@ -15,7 +15,7 @@ Examples that qualify:
 
 ## Requires second case OR explicit user authority for `patch-skill`
 
-Edit `pm-grilling` / `pm-intake` / `prototype` / `to-prd` body or branch references only when:
+Edit `pm-grilling` / `pm-intake` / `pm-prototype` / `to-prd` body or branch references only when:
 
 1. The same `gap key` appears twice with independent source cases; or
 2. Severity is S1 and the user explicitly authorizes a skill patch this run; or

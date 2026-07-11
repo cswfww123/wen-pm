@@ -144,7 +144,7 @@ Completion criterion: a stop condition is cited, exactly one disposition is sele
 
 - Use `prioritize-assumptions` only when several dangerous assumptions compete for first test.
 - Use `brainstorm-experiments-existing` or `brainstorm-experiments-new` when the disposition is `Experiment`.
-- Use `prototype` only for one named usability, logic, or feasibility question.
+- Use `pm-prototype` only for one named usability, logic, or feasibility question.
 - Use `opportunity-solution-tree` when supported outcomes contain multiple unresolved opportunities.
 - Use `pm-alignment-to-prd` for `Align`, or to turn an already authorized `Build` / `Bet` into a traceable handoff.
 - After a `decision-alignment` session changes or confirms any material track-specific field—such as Current/Expected/Delta, idea thesis, target segment, outcome, scope, constraints, experiment boundary, or acceptance—use `pm-alignment-to-prd` to create and confirm the matching brief before a subsequent `Discovery`, `Experiment`, or `Prototype`. It must preserve the failed Product Evidence Gate and produce no development handoff.

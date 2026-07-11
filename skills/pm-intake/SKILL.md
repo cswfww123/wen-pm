@@ -95,7 +95,7 @@ Use these routes only after the disposition is valid:
 | `Pause` | Obtain the one named missing source, access, owner, or prerequisite. |
 | `Discovery` | If a qualified target user is present, start `pm-grilling` in `customer-discovery` mode; otherwise choose one participant-recruitment, observation, data, or research action instead of interviewing a proxy. |
 | `Experiment` | Design or run one test for the named assumption; use the existing/new experiment skill matching the Discovery Track when design is still missing. |
-| `Prototype` | Start `prototype` with one learning question and a discard boundary. |
+| `Prototype` | Start `pm-prototype` with one learning question and a discard boundary. |
 | `Pivot` | Replace exactly one disproven core premise with a named `A-*` premise while preserving the evidence-backed opportunity. |
 | `Align` | Start `pm-grilling` in `decision-alignment` mode with the first unresolved decision. |
 | `Bet` | Start `pm-alignment-to-prd` and preserve the explicit bet cap, expiry, measurement, and rollback conditions. |

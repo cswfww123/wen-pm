@@ -1,9 +1,9 @@
 ---
-name: prototype
+name: pm-prototype
 description: Continue a canonical Prototype disposition by building one disposable artifact for one product, logic, state, or UI learning question.
 ---
 
-# Prototype
+# PM Prototype
 
 Build throwaway code that answers one question before the team commits to a
 PRD, issue slice, or production implementation.
