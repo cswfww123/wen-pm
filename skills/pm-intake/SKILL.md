@@ -5,7 +5,16 @@ description: Intake product work when the user brings a rough idea, stakeholder 
 
 # PM Intake
 
-This is the automatic front door for product work. The user does not need to know PM terminology or choose a workflow. Inspect what already exists, classify the case, build an evidence docket, and choose exactly one next action.
+This is the automatic front door for **product** work (need, market, stakeholder
+intent, Build/Bet authorization). The user does not need to know PM terminology
+or choose a workflow. Inspect what already exists, classify the case, build an
+evidence docket, and choose exactly one next action.
+
+This pack does **not** own production coding. Pure engineering tasks with
+settled product intent (named defect fix, behavior-preserving refactor, clear
+slice) should be sent to the companion engineering workspace
+(`wen-engineering`: `/implement` or `/to-spec`), not forced through discovery.
+See [docs/boundaries.md](../../docs/boundaries.md).
 
 Before classifying anything, read and apply the canonical [evidence model](references/evidence-model.md). Use its evidence types, fields, ID prefixes, strengths, and dispositions exactly; do not create local synonyms.
 
@@ -91,6 +100,12 @@ Use these routes only after the disposition is valid:
 | `Align` | Start `pm-grilling` in `decision-alignment` mode with the first unresolved decision. |
 | `Bet` | Start `pm-alignment-to-prd` and preserve the explicit bet cap, expiry, measurement, and rollback conditions. |
 | `Build` | Start `pm-alignment-to-prd` with the evidence-backed scope and acceptance examples. |
+
+If the user only needs coding delivery and the docket already has authorized
+`Build`/`Bet` with clear `REQ`/`AC` (or equivalent), the one next action may be
+**engineering handoff**: point to `to-prd` when a durable PRD is still missing,
+otherwise to companion engineering `/to-spec` → `/to-tickets` → `/implement`.
+Do not invent technical multi-session maps inside this pack.
 
 When the highest consequential unknown is **our process** (missed grill altitude, false gates, skill holes) rather than the product bet, route next action to `pm-process-retro` even if the product disposition remains `Align` / `Discovery` / `Pause`. Do not use a fake product disposition to paper over a process gap.
 

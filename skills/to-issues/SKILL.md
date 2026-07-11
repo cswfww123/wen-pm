@@ -7,6 +7,12 @@ description: Continue an authorized traceable PRD by writing local vertical-slic
 
 Turn a ready PRD into independently verifiable tracer-bullet issues. Preserve product evidence and decisions through delivery; slicing does not rewrite the requirement.
 
+This skill produces a **PM-local** issue package for planning boards and
+traceability. It is not a substitute for companion engineering
+`/to-spec` → `/to-tickets` → `/implement` in a production coding agent workflow.
+When the user wants real code delivery, prefer engineering handoff after the
+PRD is ready. See [docs/boundaries.md](../../docs/boundaries.md).
+
 Before acting, read all of the canonical [evidence model](../pm-intake/references/evidence-model.md). Preserve its records and the source disposition; a `Bet` remains labeled and bounded in every downstream issue.
 
 ## Admission Gate
@@ -78,6 +84,10 @@ The local index and issue files are authoritative.
 Create external tracker issues only when the user explicitly asks. Publish blockers first, preserve local IDs in external bodies, then write returned URLs or identifiers back to the local index and files.
 
 **Complete when:** either no external action was requested, or every successful publication has a local-to-external mapping and failures remain visibly unpublished.
+
+After the package exists, recommend companion engineering delivery
+(`/to-spec` → `/to-tickets` → `/implement`) when the user wants production code,
+unless they only asked for the local planning package.
 
 ## Blocking Report Template
 

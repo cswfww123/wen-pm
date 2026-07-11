@@ -172,4 +172,12 @@ Omit only for a genuinely new product.
 |---|---|---|---|---|---|
 ```
 
-After the PRD exists, `to-issues` can create local vertical-slice issue files while preserving every ID.
+After the PRD exists:
+
+- `to-issues` can create local vertical-slice issue files while preserving every ID (PM planning boards).
+- For real production coding agents, recommend companion **`wen-engineering`**:
+  `/to-spec` → `/to-tickets` → `/implement` using this PRD as settled product
+  input. Do not reopen product discovery inside engineering unless gates fail.
+- Technical multi-session fog after product settlement is engineering's slim
+  `/wayfinder`, not a second PM front door. See
+  [docs/boundaries.md](../../docs/boundaries.md).

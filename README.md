@@ -9,6 +9,10 @@ Default language: 简体中文
 - 已有产品或代码需要延伸、调整，或者实现完成后相关方仍认为“不是我想要的”。
 - 只有一个模糊的新想法，需要用证据决定继续、转向、暂停还是杀掉。
 
+**本仓库管需求层 / 市场层 / 需求提出者真实意图的探索。**  
+生产写码、工程规格切片与实现门禁在 companion **`wen-engineering`** 中保持轻量。  
+边界与交接契约见 [docs/boundaries.md](docs/boundaries.md)。
+
 使用者不需要先学会 PM 术语，也不需要记住 skill 菜单。把会议、想法、文档、截图、反馈或代码库交给 `pm-intake`；agent 负责查证、分类、逐问、记录证据和选择下一步。
 
 ## Quickstart
@@ -275,11 +279,15 @@ combat (intake / grill / prototype / PRD / rework)
 - Build needs evidence and alignment. Bet stays visibly a bet.
 - One entry, one question, one disposition, one next action.
 - Process learns only from combat gaps; ACTIVE force is scenario-gated and versioned via `pm-process-retro`.
+- Product fog stays here; technical multi-session fog after authorization belongs to engineering.
+- Do not compete with `pm-intake` by inventing a second product-map front door.
 
 ## Repository Layout
 
 ```text
 README.md
+docs/
+  boundaries.md
 scripts/
   sync-skills.sh
 skills/
@@ -304,6 +312,29 @@ skills/
       cards/
   ... supporting discovery and engineering skills
 ```
+
+## Boundary With Engineering
+
+| 在这里做 | 不在这里做 |
+| --- | --- |
+| 模糊概念、片段需求、访谈、内心真实需求 | 直接 `/implement` 或编造生产代码 |
+| 价值 / 可用性 / 可行性 / 商业性四风险与证据 | 用工程 Wayfinder 替代 `pm-intake` 做产品发现 |
+| Build / Bet 授权与 PRD 级产品决策 | 迁移方案、契约、双写等多会话 **技术** 雾（交给 engineering） |
+| 实现被否后的需求再发现（`existing-change`） | 在证据不足时强行 “Build 解锁开发” |
+
+授权后的推荐交接：
+
+```text
+Build | complete Bet
+  -> to-prd（可选，落本地 PRD）
+  -> wen-engineering: /to-spec -> /to-tickets -> /implement
+```
+
+若产品已 settled，但实现路径仍有多会话技术雾，由 **engineering 的瘦版
+`/wayfinder`** 处理；不要在本仓库再装一个与 `pm-intake` 竞争的通用 map skill。
+
+纯编码任务（缺陷修复、明确切片、behavior-preserving 重构）应直接进入
+engineering，而不是重新走完整 PM discovery——除非产品意图本身再次打开。
 
 ## Scope
 
