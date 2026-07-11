@@ -77,3 +77,9 @@ re-enter `/pm-intake` on the `existing-change` track.
 - Learning prototypes are not delivery pins.
 - Do not route pure coding tasks into this pack; send them to engineering.
 - Do not invent a Build disposition to “unblock” coding when gates fail.
+
+## Optional test layer
+
+System test design and acceptance QA may live in companion **`wen-test`**
+(`/to-test-plan`, `/qa-run`). Product `test-scenarios` (`SCN-*`) remain PM
+artifacts; they feed test plans but are not a substitute for QA execution.
