@@ -1,85 +1,94 @@
-# PM vs Engineering Boundaries
+# WEN Layer Boundaries (PM)
 
-本仓库负责 **需求层 / 市场层 / 需求提出者真实意图** 的证据驱动 discovery。  
-生产写码、工程切片与实现门禁属于 companion engineering 工作区（`wen-engineering`）。
+## Composition contract: standalone **or** linked
 
-## Ownership
+`wen-pm` · `wen-engineering` · `wen-test` are **three independent packs**.
 
-| Layer | Owns | Does not own |
-| --- | --- | --- |
-| **PM** (this repo) | Product/market/need discovery; interviews; evidence ledger; dispositions; Build/Bet authorization; Product Delivery Contract (`to-prd`); UI contract + delivery prototype pin; `SCN` scenarios | Shipping production code; CI; implementation-frontier tickets; inventing technical migrations as product evidence |
-| **Engineering** (`wen-engineering`) | Engineering specs, technical multi-session fog, implement, review, code QA, UI **fidelity** against the pin | Inventing user value, market bets, or “what they really meant” without PM discovery |
+| Mode | Meaning |
+| --- | --- |
+| **Standalone** | Install and run only this pack. Skills must complete their job with inputs the user actually has — do not fail because another pack is missing. |
+| **Linked** | When another pack is installed and the user routes across layers, hand off with durable artifacts (paths/IDs/versions), not chat paraphrase. |
+
+```text
+# full stack (optional)
+wen-pm ──handoff──► wen-engineering ──build──► wen-test
+   ▲                    │                         │
+   └──── product rework ┘◄── defects ─────────────┘
+
+# any layer alone is valid
+wen-pm only          discovery → PRD / kill / pause
+wen-engineering only settled AC → implement
+wen-test only        given build+AC → test plan / QA
+```
+
+**No pack is a runtime dependency of another.** Companion names are recommendations when the team uses that pack — never hard imports.
+
+## This pack owns
+
+| Owns | Does not own |
+| --- | --- |
+| Product/market/need discovery; evidence ledger; Build/Bet; Product Delivery Contract (`to-prd`); UI contract + delivery pin; product `SCN` via `test-scenarios` | Shipping production code; eng implementation tickets; system `/to-test-plan` / `/qa-run` |
+| Only automatic product front door: `/pm-intake` | A second product-map skill competing with intake |
 
 ## Two kinds of fog
 
-| Fog | Examples | Route |
-| --- | --- | --- |
-| **Product fog** | Worth doing? Who? What outcome? Inner need after rejection? Opportunity vs solution | `/pm-intake` and this pack |
-| **Technical fog** | Migration path, invariant ownership, API contract, dual-write, test seam | Engineering lifecycle after product is settled — do **not** open a second generic “wayfinder” here that competes with `pm-intake` |
+| Fog | Route |
+| --- | --- |
+| Product fog | This pack (`/pm-intake` …) |
+| Technical multi-session fog after product settled | Optional `wen-engineering` `/wayfinder` — not a PM map |
 
-## One front door
+## Standalone PM
 
-Keep **`/pm-intake`** as the only automatic product entry. Do not add a parallel
-map skill that re-plans product discovery outside the evidence model.
+Valid without eng or test:
 
-## Handoff to engineering (when authorized)
+- intake → discovery / experiment / alignment → Build, Bet, Kill, Pause, …
+- write `to-prd` + `test-scenarios` for humans or any downstream process
+- stop after PRD if the team implements elsewhere
 
-Emit a development handoff **only** for canonical `Build` or a complete
-bounded `Bet`.
+Do not invent code or system QA results here.
 
-### Product Delivery Contract (minimum package)
+## Linked handoff (when engineering is used)
 
-1. Disposition: `Build` or complete `Bet` (cap, expiry, measurement, rollback, kill)
-2. Problem, outcome, scope, out of scope
-3. Intended behavior: stable `REQ-*` and `AC-*`
-4. Traceability: evidence or Bet `A-*` + authorizing `D-*`
-5. **UI when visual:** `SCR-*` / `FLD-*` / `RULE-*` / UI states + **pinned** delivery prototype version (see `to-prd` / `UI-CONTRACT.md`)
-6. **`SCN-*` scenarios** via `test-scenarios` (default before agent coding)
-7. Known feasibility notes already confirmed by engineering owners (if any)
-8. Explicit non-goals and protected current behavior
+Emit development handoff only for canonical `Build` or complete bounded `Bet`.
 
-### Default agent spine
+Minimum package:
+
+1. Disposition Build | complete Bet  
+2. Problem, outcome, scope / out of scope  
+3. `REQ-*` / `AC-*`  
+4. Evidence or Bet `A-*` + authorizing `D-*`  
+5. UI when visual: field/rule structure + **pinned** delivery design  
+6. Product `SCN-*` when useful  
+7. Non-goals / protected behavior  
+
+Recommended spine when all three packs are in play:
 
 ```text
-Build | complete Bet
-  -> to-prd          # Product Delivery Contract (+ UI contract if visual)
-  -> test-scenarios  # SCN-* (default; cover RULE-* / UI states)
-  -> wen-engineering: /to-spec -> /to-tickets -> /implement
-  -> eng /qa-run     # behavior + UI fidelity gates
+pm-intake → … → Build|Bet
+  → to-prd → test-scenarios
+  → (optional) wen-engineering: /to-spec → /to-tickets → /implement
+  → (optional) wen-test: /to-test-plan → /qa-run
 ```
 
-### Optional only
+- `to-issues` — **optional** human board only  
+- System QA is **`wen-test`**, not eng `/qa-run` (that skill moved)  
+- If eng/test packs are absent, the same artifacts still hand to humans or other tools  
 
-- `to-issues` — human planning boards; **not** the agent execution source of truth
-- `pm-prototype` — learning prototypes; not delivery truth unless re-exported and pinned
-
-If product is settled but **implementation route** is still multi-session
-technical fog, engineering may use its slim technical `/wayfinder`.
-
-## Handoff back from engineering
+## Handback into PM
 
 Accept returns when:
 
-- implementation feedback shows intended behavior was wrong or underspecified
-- UI fidelity failure is a **contract** error (missing/wrong FLD/RULE/pin), not a coding miss
-- “bug” is really product rework without authorized Expected
-- value/usability/viability claims need new evidence
+- implementation or QA shows intent was wrong / underspecified  
+- UI fidelity failure is a **contract** error  
+- “bug” is product rework without Expected  
 
-Require engineering to send: repo-backed Current, stakeholder statements as
-`ST-*` only, failing AC/SCN/FLD/RULE IDs, and the open product question — then
-re-enter `/pm-intake` on the `existing-change` track.
+Require: repo-backed Current, statements as `ST-*`, failing IDs — then `/pm-intake` on `existing-change`.
 
 ## Hard rules
 
-- Statements and Decisions are not product evidence.
-- Code proves Current and some feasibility; it does not prove correct need.
-- Screenshots without FLD/RULE are not a UI contract.
-- Learning prototypes are not delivery pins.
-- Do not route pure coding tasks into this pack; send them to engineering.
-- Do not invent a Build disposition to “unblock” coding when gates fail.
-
-## Optional test layer
-
-System test design and acceptance QA may live in companion **`wen-test`**
-(`/to-test-plan`, `/qa-run`). Product `test-scenarios` (`SCN-*`) remain PM
-artifacts; they feed test plans but are not a substitute for QA execution.
+- Statements and Decisions are not product evidence.  
+- Code proves Current/feasibility, not correct need.  
+- Screenshots without field/rule structure are not a UI contract.  
+- Learning prototypes are not delivery pins.  
+- Pure coding with settled AC should go to engineering (or the team’s coding process), not full PM discovery.  
+- Never invent Build to “unblock” coding when gates fail.  

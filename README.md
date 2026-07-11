@@ -9,8 +9,15 @@ Default language: 简体中文
 - 已有产品或代码需要延伸、调整，或者实现完成后相关方仍认为“不是我想要的”。
 - 只有一个模糊的新想法，需要用证据决定继续、转向、暂停还是杀掉。
 
-**本仓库管需求层 / 市场层 / 需求提出者真实意图的探索。**  
-生产写码、工程规格切片与实现门禁在 companion **`wen-engineering`** 中保持轻量。  
+**本仓库管需求层 / 市场层 / 需求提出者真实意图的探索。**
+
+与 **`wen-engineering`（编码）**、**`wen-test`（系统测试）** 是三层独立 skill 包：
+
+| 模式 | 含义 |
+| --- | --- |
+| **单独使用** | 只装本仓库即可跑完整 PM discovery → PRD；不依赖 eng/test |
+| **联动使用** | 授权后把 Delivery Contract 交给 eng；系统 QA 交给 test；用产物交接，不硬编码依赖 |
+
 边界与交接契约见 [docs/boundaries.md](docs/boundaries.md)。
 
 使用者不需要先学会 PM 术语，也不需要记住 skill 菜单。把会议、想法、文档、截图、反馈或代码库交给 `pm-intake`；agent 负责查证、分类、逐问、记录证据和选择下一步。
@@ -280,8 +287,9 @@ combat (intake / grill / pm-prototype / PRD / rework)
 - Build needs evidence and alignment. Bet stays visibly a bet.
 - One entry, one question, one disposition, one next action.
 - Process learns only from combat gaps; ACTIVE force is scenario-gated and versioned via `pm-process-retro`.
-- Product fog stays here; technical multi-session fog after authorization belongs to engineering.
+- Product fog stays here; technical multi-session fog after authorization belongs to engineering (if used).
 - Do not compete with `pm-intake` by inventing a second product-map front door.
+- Three packs (pm / engineering / test) work **standalone or linked** — never hard-depend on each other.
 
 ## Repository Layout
 
@@ -323,22 +331,29 @@ skills/
 | Build / Bet 授权与 PRD 级产品决策 | 迁移方案、契约、双写等多会话 **技术** 雾（交给 engineering） |
 | 实现被否后的需求再发现（`existing-change`） | 在证据不足时强行 “Build 解锁开发” |
 
-授权后的推荐交接（agent 默认脊柱）：
+### 单独使用（仅 PM）
+
+```text
+/pm-intake → … → Build|Bet|Kill|…
+  → to-prd / test-scenarios（给人或其他流程）
+```
+
+### 联动使用（三层都装时）
 
 ```text
 Build | complete Bet
   -> to-prd              # Product Delivery Contract；有 UI 则含 FLD/RULE + 钉死原型
-  -> test-scenarios      # SCN-*（默认；覆盖联动规则）
-  -> wen-engineering: /to-spec -> /to-tickets -> /implement
-  -> eng /qa-run         # 行为门 + UI 保真门
+  -> test-scenarios      # 产品 SCN-*
+  -> (可选) wen-engineering: /to-spec -> /to-tickets -> /implement
+  -> (可选) wen-test: /to-test-plan -> /qa-run
 ```
 
+- 缺 eng 或 test **不是错误**——PRD 仍可交付给人类或其他工具。
 - `to-issues` **仅可选**（给人看板），不是 agent 执行真相。
 - 学习型 `pm-prototype` ≠ 交付原型钉死版本。
-- 若产品已 settled 但实现路径仍有多会话技术雾，由 engineering 瘦版 `/wayfinder` 处理。
+- 产品已 settled 但实现仍多会话技术雾 → eng 瘦版 `/wayfinder`（若使用 eng）。
 
-纯编码任务（缺陷修复、明确切片、behavior-preserving 重构）应直接进入
-engineering，而不是重新走完整 PM discovery——除非产品意图本身再次打开。
+纯编码且 AC 已明确：可直接进 engineering（或团队自己的编码流程），不必强行走完整 PM。
 
 ## Scope
 

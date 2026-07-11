@@ -202,15 +202,18 @@ Screens, Fields, Linkage Rules, and UI States per [UI-CONTRACT.md](UI-CONTRACT.m
 
 ## After The PRD Exists
 
-Default agent handoff spine (in order):
+Handoff is **optional and pack-agnostic** (this pack works standalone):
 
-1. **`test-scenarios`** — produce `SCN-*` that exercise every material `AC-*`
-   and every `RULE-*` / UI state when a UI contract exists.
-2. **Companion `wen-engineering`**: `/to-spec` → `/to-tickets` → `/implement`
-   using this PRD (+ scenarios + UI contract) as settled product input.
-3. **`to-issues`** — **optional**, only for human planning boards; never the
-   agent execution source of truth.
+1. **`test-scenarios`** — recommended when scenarios help the next owner;
+   produce `SCN-*` for material `AC-*` and `RULE-*` / UI states when UI exists.
+2. **If coding pack is used** (`wen-engineering`): `/to-spec` → `/to-tickets` →
+   `/implement` with this PRD as settled product input.
+3. **If test pack is used** (`wen-test`): `/to-test-plan` → `/qa-run` after a
+   testable build (not a substitute for eng implement).
+4. **`to-issues`** — optional human boards only; never agent execution truth.
+5. **If neither eng nor test is installed** — stop after the PRD; humans or
+   other tools consume it.
 
-Do not reopen product discovery inside engineering unless gates fail.
-Technical multi-session fog after settlement is engineering's slim `/wayfinder`.
-See [docs/boundaries.md](../../docs/boundaries.md).
+Do not reopen product discovery inside coding unless gates fail. Technical
+multi-session fog is eng's slim `/wayfinder` when that pack is in use. See
+[docs/boundaries.md](../../docs/boundaries.md).
